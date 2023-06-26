@@ -34,11 +34,15 @@ function useMetaMask() {
 		};
 
 		const handleAccountsChanged = async (accounts) => {
+			const iframe = document.getElementById('uniswap-iframe');
+			iframe.contentWindow.postMessage({ type: "accontChanged" }, "*");
 			if (accounts.length === 0) {
+				
 				setIsConnected(false);
 				setAccount(null);
 				localStorage.removeItem("metamaskAccount");
 			} else {
+				
 				setIsConnected(true);
 				setAccount(accounts[0]);
 				localStorage.setItem("metamaskAccount", accounts[0]);
@@ -61,15 +65,19 @@ function useMetaMask() {
 		};
 	}, []);
 
+	
+
 	const connectWallet = async () => {
 		if (isInstalled) {
 			try {
+				const iframe = document.getElementById('uniswap-iframe');
 				const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+				iframe.contentWindow.postMessage({ type: "connectWallet" }, "*");
 				setIsConnected(true);
 				setAccount(accounts[0]);
 				localStorage.setItem("metamaskAccount", accounts[0]);
 			} catch (error) {
-				console.error(error);
+				console.error('connect error',error);
 			}
 		} else {
 			toast.error("MetaMask is not installed");

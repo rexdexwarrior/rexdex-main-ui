@@ -5,9 +5,10 @@ import "react-toastify/dist/ReactToastify.css";
 
 import Sidebar from "./Base/Sidebar";
 import Header from "./Base/Header";
-import Uniswap from "./Pages/Uniswap";
+// import Uniswap from "./Pages/Uniswap";
 // import Swap2 from "./Pages/Swap2";
-// import Pool2 from "./Pages/Pool2"; 
+//  import Pool from "./Pages/Pool"; 
+import Home from "./Pages/Home";
 import AirDrop from "./Pages/AirDrop/AirDrop";
 import Farm from "./Pages/Farm/Farm";
 import Stake from "./Pages/Stake/Stake";
@@ -46,9 +47,10 @@ export default function App() {
 		setMenu(false);
 		document.body.classList.remove("active");
 	}, [location]);
-	const UniswapComponent = Uniswap;
+	//const UniswapComponent = Uniswap;
 	// const SwapComponent = WithLayout(Uniswap);
-	// const PoolComponent = WithLayout(Uniswap);
+	//const PoolComponent = WithLayout(Pool);
+	const HomeComponent = WithLayout(Home);
 	const AirDropComponent = WithLayout(AirDrop);
 	const BridgeComponent = WithLayout(Bridge);
 	const FarmComponent = WithLayout(Farm);
@@ -63,13 +65,17 @@ export default function App() {
 			<Header setMenu={setMenu} menu={menu} />
 			<Sidebar menu={menu} closeFunc={closeFunc} />
 			<main className="main">
-				<div hidden={location.pathname !== "/" && location.pathname !== "/swap" && location.pathname !== "/pool"}>
+				{/* <div hidden={location.pathname !== "/" && location.pathname !== "/swap" && location.pathname !== "/pool"}>
 					<UniswapComponent unipage={location.pathname === '/'? 'swap' : 'pool' } />
-				</div>
+				</div> */}
+				{/* <div hidden={location.pathname !== "/" && location.pathname !== "/swap"}>
+					<UniswapComponent unipage={'swap' } />
+				</div> */}
 				<Routes>
-					<Route exact path="" element={<></>} />
+					<Route exact path="" element={<HomeComponent />} />
 					<Route exact path="swap" element={<></>} />
 					<Route exact path="pool" element={<></>} />
+					
 					<Route path="airdrop" element={<AirDropComponent />} />
 					<Route path="bridge" element={<BridgeComponent />} />
 					<Route path="farming" element={<FarmComponent />} />

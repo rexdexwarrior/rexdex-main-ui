@@ -10,6 +10,7 @@ import {
   referralIcon,
   stakingIcon,
   swapIcon,
+  homeIcon,
   twitter,
   webIcon,
 } from "./SVG";
@@ -26,9 +27,14 @@ export default function Sidebar({ menu, closeFunc }) {
       <div className="sidebar__inner">
         <div className="sidebar__inner-links">
           <NavLink to="" className="sidebar__inner-link">
-            <span> {swapIcon}</span> Swap
+            <span> {homeIcon}</span> Home
           </NavLink>
-          <NavLink to="pool" className="sidebar__inner-link">
+          
+          {/*
+          <NavLink to="old-pool" className="sidebar__inner-link">
+            <span>{poolIcon}</span> Old Pool
+          </NavLink> */}
+          <NavLink to="https://swap.rexdex.finance/#/pool" className="sidebar__inner-link">
             <span>{poolIcon}</span> Pool
           </NavLink>
           <NavLink to="airdrop" className="sidebar__inner-link">
@@ -52,9 +58,12 @@ export default function Sidebar({ menu, closeFunc }) {
           <NavLink to="referral" className="sidebar__inner-link">
             <span>{referralIcon}</span> Referral
           </NavLink>
-          <NavLink to="staking" className={`sidebar__inner-link ${
+          <NavLink
+            to="staking"
+            className={`sidebar__inner-link ${
               pathname.includes("deposit-staking") && "active"
-            }`}>
+            }`}
+          >
             <span>{stakingIcon}</span> Staking
           </NavLink>
           <NavLink to="nft" className="sidebar__inner-link">

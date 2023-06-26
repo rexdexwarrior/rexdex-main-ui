@@ -16,6 +16,8 @@ const WithLayout = (WrappedComponent) => {
 				// Attach event listener
 				window.ethereum.on("chainChanged", handleChainChanged);
 
+				
+
 				window.ethereum.request({ method: "eth_chainId" }).then((chainIdFromMeta) => {
 					if (chainIdFromMeta !== chainId) {
 						console.log("different chain found");
