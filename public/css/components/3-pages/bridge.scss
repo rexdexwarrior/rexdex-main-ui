@@ -1,0 +1,352 @@
+.bridge {
+  background: rgba(29, 38, 45, 0.5);
+  border-radius: 12px;
+  max-width: 973px;
+  margin: 50px auto 0 auto;
+  &--placeholder {
+    display: block;
+    width: 100%;
+    max-width: 973px;
+    margin: 50px auto 0 auto;
+    border-radius: 12px;
+    min-height: 610px;
+  }
+  &__header {
+    display: flex;
+    &-btn {
+      padding: 22px 38px;
+      box-sizing: border-box;
+      font-family: $title-font;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 30px;
+      color: $white;
+      background: transparent;
+      @include transition;
+      border-radius: 10px 10px 0 0;
+      border: 1px solid transparent;
+      cursor: pointer;
+      &.active {
+        background: rgba(29, 38, 45, 0.5);
+        border: 1px solid rgba(4, 249, 244, 0.5);
+        color: $main;
+      }
+
+      svg {
+        width: 20px;
+        height: 18px;
+        margin-right: 6px;
+      }
+    }
+  }
+  &__body {
+    border-radius: 0 0 12px 12px;
+    border: 1px solid rgba(4, 249, 244, 0.5);
+    box-sizing: border-box;
+    min-height: 535px;
+    position: relative;
+  }
+  &Token {
+    display: flex;
+    justify-content: space-between;
+  }
+  &Side {
+    width: calc(33.3% - 8px);
+    padding: 45px;
+    box-sizing: border-box;
+    &__tab {
+      &-btn {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-family: $title-font;
+        font-weight: 500;
+        cursor: pointer;
+        font-size: 16px;
+        line-height: 24px;
+        color: rgba($color: $white, $alpha: 0.7);
+        padding: 15px 0;
+        border-bottom: 1px solid rgba($color: $white, $alpha: 0.7);
+        margin-bottom: 70px;
+        &.active {
+          svg {
+            transform: rotate(180deg);
+          }
+        }
+        svg {
+          width: 24px;
+          height: 24px;
+          @include transition;
+        }
+      }
+      &-arrows {
+        width: 15px;
+        height: 17px;
+        margin: 35px auto;
+        display: block;
+        svg {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+  &Main {
+    box-sizing: border-box;
+    padding: 45px 70px;
+    width: calc(66.6% - 8px);
+  }
+  .divider {
+    width: 16px;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background: url(../images/divider.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+    left: calc(33.3% - 8px);
+  }
+  &Input {
+    margin-bottom: 5px;
+    span {
+      display: block;
+      text-align: right;
+      font-family: $title-font;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 18px;
+      color: #7a7a7a;
+    }
+    input {
+      border-bottom: 1px solid $white;
+      background: transparent;
+      font-family: $title-font;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: $white;
+      padding: 20px 0;
+      box-sizing: border-box;
+      width: 100%;
+      margin-bottom: 5px;
+      &::placeholder {
+        opacity: 1;
+        color: $white;
+      }
+    }
+  }
+  .button {
+    width: 100%;
+    margin-top: 40px;
+  }
+  &Image {
+    position: relative;
+    margin-top: 34px;
+    h5 {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    p {
+      color: #7a7a7a;
+    }
+    input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      cursor: pointer;
+      height: 100%;
+      z-index: 1;
+      opacity: 0;
+    }
+    label {
+      margin: 0 auto;
+      max-width: 140px;
+      background: rgba(4, 249, 244, 0.2);
+      border-radius: 4px;
+      display: block;
+      position: relative;
+      display: block;
+      padding: 4px 10px;
+    }
+    &__box {
+      border: 0.6px solid #04f9f4;
+      border-radius: 5px;
+      box-sizing: border-box;
+      padding: 4px 14px;
+
+      font-family: $title-font;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 18px;
+      color: $main;
+      text-align: center;
+      margin-bottom: 6px;
+      span {
+        display: block;
+      }
+      svg {
+        width: 57px;
+        height: 57px;
+        color: $main;
+      }
+    }
+  }
+  &History {
+    &__emp {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      @include transform;
+      background: rgba(4, 249, 244, 0.01);
+      border-radius: 4px;
+      width: 240px;
+      height: 178px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      &-icon {
+        width: 64px;
+        height: 54px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+        svg {
+          width: 100%;
+          height: 100%;
+          color: $white;
+        }
+      }
+    }
+  }
+  .select {
+    font-family: $title-font;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    position: relative;
+    min-width: 170px;
+    cursor: pointer;
+    &__options {
+      max-height: 0;
+      overflow: hidden;
+      position: absolute;
+      top: 100%;
+      @include transition;
+      left: 0;
+      width: 100%;
+      border-radius: 0 0 5px 5px;
+      background: #161717;
+
+      &-item {
+        padding: 8px 14px;
+        color: rgba($color: $white, $alpha: 0.7);
+        @include transition;
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+    &.active {
+      .select__selected {
+        border-radius: 5px 5px 0 0;
+      }
+      .select__options {
+        max-height: 200px;
+      }
+    }
+    &__selected {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      box-sizing: border-box;
+      border-radius: 5px;
+      cursor: pointer;
+      box-sizing: border-box;
+      background: #161717;
+      color: rgba($color: $white, $alpha: 0.7);
+    }
+  }
+}
+@mixin bridge-xxlg-xxxlg {
+  .bridge {
+    margin: 0 auto;
+    &--placeholder {
+      margin: 0 auto;
+    }
+    &Main {
+      width: calc(60% - 8px);
+      padding: 40px;
+    }
+    .divider {
+      left: calc(40% - 8px);
+    }
+    &Side {
+      padding: 40px 20px;
+      width: calc(40% - 8px);
+    }
+  }
+}
+@mixin bridge-md-lg {
+  .bridge {
+    &__header {
+      &-btn {
+        font-size: 16px;
+        line-height: 22px;
+        padding: 16px;
+        width: 33.3%;
+      }
+    }
+    &Side {
+      width: 100%;
+      padding: 45px 70px;
+    }
+    .divider {
+      display: none;
+    }
+    &Main {
+      padding: 45px 70px;
+      width: 100%;
+    }
+    &Token {
+      flex-direction: column;
+    }
+  }
+}
+@mixin bridge-sm-md {
+  .bridge {
+    &__header {
+      &-btn {
+        font-size: 14px;
+        line-height: 20px;
+        padding: 16px 10px;
+        svg {
+          display: none;
+        }
+      }
+    }
+    &Side {
+      padding: 40px 20px;
+    }
+    &Main {
+      padding: 40px 20px;
+    }
+  }
+}
+@mixin bridge-xsm-sm {
+  .bridge {
+    &__header {
+      &-btn {
+        font-size: 10px;
+        line-height: 16px;
+        padding: 10px 5px;
+      }
+    }
+  }
+}

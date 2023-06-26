@@ -1,0 +1,160 @@
+.referral {
+  max-width: 701px;
+  margin: 0 auto;
+  h2 {
+    margin-bottom: 40px;
+    &.placeholder {
+      min-height: 72px;
+      display: block;
+      width: 100%;
+      border-radius: 5px;
+      max-width: 250px;
+    }
+  }
+  &Item {
+    padding: 40px 50px;
+    background: linear-gradient(
+      175.59deg,
+      rgba(29, 38, 45, 0.5) 0%,
+      rgba(41, 50, 56, 0.5) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 1px 56px rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    h5 {
+      &.uniq {
+        margin-bottom: 20px;
+      }
+      &.placeholder {
+        min-height: 30px;
+        display: block;
+        margin-bottom: 20px;
+        width: 100%;
+        border-radius: 5px;
+      }
+    }
+    .holdInput {
+      margin-bottom: 20px;
+    }
+  }
+  .wrappper {
+    margin-bottom: 20px;
+    z-index: 4;
+    position: relative;
+  }
+  .button {
+    &.placeholder {
+      min-height: 30px;
+      display: block;
+      width: 217px;
+      margin-left: 13px;
+      border-radius: 5px;
+      min-height: 46px;
+    }
+  }
+  &Input {
+    width: calc(100% - 230px);
+    position: relative;
+    &.placeholder {
+      min-height: 30px;
+      display: block;
+      width: calc(100% - 230px);
+      min-height: 46px;
+
+      border-radius: 5px;
+    }
+    &__outer {
+      h5 {
+        margin-bottom: 10px;
+        color: $main;
+        &.placeholder {
+          min-height: 30px;
+          display: block;
+          width: 100%;
+          max-width: 150px;
+          border-radius: 5px;
+        }
+      }
+    }
+    span {
+      position: absolute;
+      top: 50%;
+      @include transformY;
+      right: 10px;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0.8;
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    input {
+      box-sizing: border-box;
+      background: linear-gradient(
+        175.59deg,
+        rgba(29, 38, 45, 0.5) 0%,
+        rgba(41, 50, 56, 0.5) 100%
+      );
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0px 1px 56px rgba(255, 255, 255, 0.05);
+      border-radius: 6px;
+      font-family: $title-font;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: $white;
+      padding: 10px 40px 10px 10px;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    &__row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .button {
+        width: 217px;
+        margin-left: 13px;
+      }
+    }
+  }
+}
+@mixin referral-xlg-xxlg {
+  .referral {
+    h2 {
+      margin-bottom: 20px;
+    }
+  }
+}
+@mixin referral-xsm-sm {
+  .referral {
+    &Item {
+      padding: 24px 20px;
+    }
+    &Input {
+      width: 100%;
+      margin-bottom: 12px;
+      &.placeholder {
+        width: 100%;
+        max-width: unset;
+      }
+      &__row {
+        flex-direction: column;
+        .button {
+          width: 100%;
+          margin: 0;
+          &.placeholder {
+            width: 100%;
+            margin: 0;
+            max-width: unset;
+          }
+        }
+      }
+    }
+  }
+}

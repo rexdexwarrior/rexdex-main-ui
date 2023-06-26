@@ -1,0 +1,88 @@
+.air {
+  max-width: 607px;
+  margin: 0 auto;
+  padding: 40px 0;
+  &Item {
+    padding: 6px 36px;
+    margin-bottom: 20px;
+    background: linear-gradient(
+      175.59deg,
+      rgba(29, 38, 45, 0.5) 0%,
+      rgba(41, 50, 56, 0.5) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 1px 56px rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    &__header {
+      padding: 16px 0;
+      border-bottom: 1px solid rgba($color: $white, $alpha: 0.2);
+      h5 {
+        &.placeholder {
+          display: block;
+          width: 100%;
+          border-radius: 5px;
+          min-height: 30px;
+        }
+      }
+    }
+    &__body {
+      padding: 16px 0;
+      p {
+        &.placeholder {
+          display: block;
+          width: 100%;
+          border-radius: 5px;
+          margin: 0;
+          min-height: 22px;
+        }
+      }
+    }
+  }
+  p {
+    &.placeholder {
+      display: block;
+      width: 100%;
+      border-radius: 5px;
+      min-height: 44px;
+    }
+  }
+  h2 {
+    margin-bottom: 28px;
+  }
+  p.big {
+    margin-bottom: 36px;
+  }
+  &__btn {
+    display: flex;
+    align-items: flex-start;
+    .button {
+      &.placeholder {
+        display: block;
+        width: 100%;
+        max-width: 120px;
+        border-radius: 5px;
+        min-height: 46px;
+        margin-top: 40px;
+      }
+    }
+  }
+}
+@mixin air-xxlg-xxxlg {
+  .air {
+    padding: 0 0 30px 0;
+  }
+}
+@mixin air-xlg-xxlg {
+  .air {
+    h2 {
+      margin-bottom: 20px;
+    }
+  }
+}
+@mixin air-xsm-sm {
+  .air {
+    &Item {
+      padding: 6px 20px;
+    }
+  }
+}

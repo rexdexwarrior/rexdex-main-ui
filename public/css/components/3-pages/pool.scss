@@ -1,0 +1,197 @@
+.pool {
+  padding: 40px 0;
+  margin: 0 auto;
+  max-width: 607px;
+  h2 {
+    margin-bottom: 50px;
+    &.placeholder {
+      min-height: 72px;
+      width: 100%;
+      max-width: 150px;
+      display: block;
+      border-radius: 5px;
+    }
+  }
+  &Item {
+    padding: 30px 36px;
+    margin-bottom: 20px;
+    background: linear-gradient(
+      175.59deg,
+      rgba(29, 38, 45, 0.5) 0%,
+      rgba(41, 50, 56, 0.5) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 1px 56px rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    h3 {
+      margin-bottom: 10px;
+      &.placeholder {
+        width: 100%;
+        max-width: 400px;
+        display: block;
+        border-radius: 5px;
+        min-height: 42px;
+      }
+    }
+    p {
+      margin-bottom: 12px;
+      &.placeholder {
+        width: 100%;
+
+        display: block;
+        min-height: 66px;
+      }
+      a {
+        &.placeholder {
+          width: 100%;
+          border-radius: 5px;
+          max-width: 150px;
+          display: block;
+          min-height: 22px;
+        }
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  &__more {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 50px;
+    &.placeholder {
+      width: 100%;
+      border-radius: 5px;
+      display: block;
+      min-height: 42px;
+    }
+    &-btns {
+      display: flex;
+      align-items: center;
+
+      .button {
+        margin-left: 15px;
+      }
+    }
+  }
+  &__footer {
+    text-align: center; 
+    margin: 20px;
+    p {
+      &.placeholder {
+        margin: 0 auto 10px auto;
+        max-width: 360px;
+        width: 100%;
+        display: block;
+        min-height: 22px;
+      }
+      a {
+        &.placeholder {
+          margin: 0 auto;
+          max-width: 150px;
+          width: 100%;
+          display: block;
+          min-height: 22px;
+        }
+      }
+      &.big {
+        color: rgba($color: $white, $alpha: 0.6);
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+@mixin pool-xxlg-xxxlg {
+  .pool {
+    padding: 0 0 30px 0;
+  }
+}
+@mixin pool-xlg-xxlg {
+  .pool {
+    h2 {
+      margin-bottom: 20px;
+    }
+  }
+}
+@mixin pool-xsm-sm {
+  .pool {
+    &__more {
+      flex-direction: column;
+      align-items: flex-start;
+      h4 {
+        margin-bottom: 16px;
+      }
+      &-btns {
+        justify-content: space-between;
+        width: 100%;
+
+        .button {
+          margin: 0;
+          width: calc(50% - 10px);
+        }
+      }
+    }
+    &Item {
+      padding: 20px;
+    }
+  }
+}
+.poolList {
+  .box {
+    display: flex;
+    justify-content: space-between;
+  }
+  h5.uniq {
+    color: #04f9f4;
+  }
+
+  .btnBox {
+    display: flex;
+    justify-content: end;
+    .button {
+      font-size: 14px;
+      height: 38px;
+    }
+  }
+}
+
+.removeLiquidityContainer {
+  height: 118px;
+  h3 {
+    color: #04f9f4;
+  }
+
+  .sliderChoices {
+    display: flex;
+    justify-content: space-evenly;
+    div {
+      cursor: pointer;
+      background: #04f9f4;
+      width: 74px;
+      text-align: center;
+      color: black;
+      font-weight: bold;
+      border-radius: 6px;
+    }
+  }
+
+  .slider {
+    display: flex;
+    justify-content: space-between;
+    input {
+      width: 75%;
+    }
+    .amount {
+      font-size: 30px;
+    }
+  }
+}
+
+.removeLiquidityBox2 {
+  .box { 
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+}

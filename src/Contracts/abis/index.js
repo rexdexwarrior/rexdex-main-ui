@@ -1,0 +1,10 @@
+export const RouterAbi = require("./RouterV2.json"); 
+export const ERC20Abi = require("./ERC20Abi.json"); 
+export const FactoryAbi = require("./FactoryAbi.json"); 
+export const FarmingAbi = require("./RexFarming.json"); 
+export const PairV2Abi = require("./PairV2.json"); 
+export const airDropAbi = require("./AirDrop.json"); 
+export const boostingAbi = require("./Boosting.json"); 
+export const ERC21Abi = require("./ERC21Abi.json"); 
+export const ReferalAbi = require("./Referral.json"); 
+export const StakingAbi = require("./Staking.json"); 

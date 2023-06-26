@@ -1,0 +1,169 @@
+// 1740px
+@include extraLarge {
+  @include filter-extraLarge;
+  @include nft-extraLarge;
+}
+// 1540px
+@include xxxxlg-xxxxxlg {
+  // base start
+  h1,
+  h2 {
+    font-size: 42px;
+    line-height: 52px;
+  }
+  h3 {
+    font-size: 26px;
+    line-height: 40px;
+  }
+  h4 {
+    font-size: 22px;
+    line-height: 32px;
+  }
+  h5 {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  @include sidebar-xxxxlg-xxxxxlg;
+  @include filter-xxxxlg-xxxxxlg;
+  // base end
+  @include nft-xxxxlg-xxxxxlg;
+}
+// 1460px
+@include xxxlg-xxxxlg {
+  // base start
+  h1,
+  h2 {
+    font-size: 36px;
+    line-height: 42px;
+  }
+  h3 {
+    font-size: 24px;
+    line-height: 36px;
+  }
+  h4 {
+    font-size: 20px;
+    line-height: 28px;
+  }
+  h5 {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  @include sidebar-xxxlg-xxxxlg;
+  // base end
+}
+// 1340px
+@include xxlg-xxxlg {
+  // base start
+  .wrapper {
+    margin-left: 240px;
+    width: calc(100% - 240px);
+    padding-top: 82px;
+  }
+  .auto__container {
+    padding: 0 20px;
+  }
+  .layout {
+    padding: 30px 0;
+  }
+  @include header-xxlg-xxxlg;
+  @include sidebar-xxlg-xxxlg;
+  @include filter-xxlg-xxxlg;
+  // base end
+  // pool page start
+  @include pool-xxlg-xxxlg;
+  // pool page end
+  // air page start
+  @include air-xxlg-xxxlg;
+  // air page end
+  // farm page start
+  @include farm-xxlg-xxxlg;
+  // farm page end
+  // bridge page start
+  @include bridge-xxlg-xxxlg;
+  // bridge page end
+}
+// 1240px
+@include xlg-xxlg {
+  @include filter-xlg-xxlg;
+
+  // swap page start
+  @include swap-xlg-xxlg;
+  // swap page end
+  // pool page start
+  @include pool-xlg-xxlg;
+  // pool page end
+  // air page start
+  @include air-xlg-xxlg;
+  // air page end
+  // farm page start
+  @include farm-xlg-xxlg;
+  // farm page end
+  // referral page start
+  @include referral-xlg-xxlg;
+  // referral page end
+  // nft page start
+  @include nft-xlg-xxlg;
+  // nft page end
+}
+// 1024px
+@include lg-xlg {
+  @include header-lg-xlg;
+  @include sidebar-lg-xlg;
+  .wrapper {
+    width: 100%;
+    margin: 0;
+  }
+}
+// 840px
+@include md-lg {
+  @include nft-md-lg;
+
+  // swap page start
+  @include swap-md-lg;
+  // swap page end
+  // bridge page start
+  @include bridge-md-lg;
+  // bridge page end
+}
+// 768px
+@include sm-md {
+  // base start
+  @include header-sm-md;
+  // base end
+
+  // swap page start
+  @include swap-sm-md;
+  // swap page end
+  // bridge page start
+  @include bridge-sm-md;
+  // bridge page end
+}
+// 540px
+@include xsm-sm {
+  // base start
+  @include header-xsm-sm;
+  @include filter-xsm-sm;
+  .wrapper {
+    padding-top: 80px;
+  }
+  // base end
+  // swap page start
+  @include swap-xsm-sm;
+  // swap page end
+  // pool page start
+  @include pool-xsm-sm;
+  // pool page end
+  // air page start
+  @include air-xsm-sm;
+  // air page end
+  // farm page start
+  @include farm-xsm-sm;
+  // farm page end
+  // referral page start
+  @include referral-xsm-sm;
+  // referral page end
+  @include nft-xsm-sm;
+  @include bridge-xsm-sm;
+}

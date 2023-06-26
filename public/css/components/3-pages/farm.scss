@@ -1,0 +1,145 @@
+.farm {
+  padding: 40px 0;
+  margin: 0 auto;
+  max-width: 607px;
+  h2.placeholder {
+    min-height: 72px;
+    display: block;
+    width: 100%;
+    border-radius: 5px;
+    max-width: 150px;
+  }
+  &Item {
+    padding: 6px 36px;
+    margin-bottom: 20px;
+    background: linear-gradient(
+      175.59deg,
+      rgba(29, 38, 45, 0.5) 0%,
+      rgba(41, 50, 56, 0.5) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 1px 56px rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+
+    &__header {
+      border-bottom: 1px solid rgba($color: $white, $alpha: 0.2);
+      padding: 16px 0;
+    }
+    &__body {
+      padding: 16px 0;
+    }
+    &__row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      p {
+        &.placeholder {
+          width: 50%;
+          max-width: 150px;
+        }
+      }
+    }
+  }
+  .search {
+    &__row {
+      margin-bottom: 24px;
+      h5 {
+        &.placeholder {
+          min-height: 32px;
+          display: block;
+          width: 100%;
+          border-radius: 5px;
+          max-width: 150px;
+        }
+      }
+    }
+    &.placeholder {
+      min-height: 32px;
+      display: block;
+      width: 100%;
+      border-radius: 5px;
+      max-width: 150px;
+    }
+  }
+  .radio {
+    &__row {
+      margin-bottom: 40px;
+    }
+    &.placeholder {
+      min-height: 32px;
+      display: block;
+      width: 100%;
+      border-radius: 5px;
+      max-width: 200px;
+    }
+  }
+  h2 {
+    margin-bottom: 30px;
+  }
+  h5 {
+    &.placeholder {
+      min-height: 30px;
+      display: block;
+      width: 100%;
+    }
+  }
+  p {
+    &.placeholder {
+      min-height: 22px;
+      display: block;
+      width: 100%;
+    }
+    a {
+      &.placeholder {
+        min-height: 22px;
+        display: block;
+        width: 100%;
+        max-width: 150px;
+      }
+    }
+  }
+}
+@mixin farm-xxlg-xxxlg {
+  .farm {
+    padding: 0 0 30px 0;
+  }
+}
+@mixin farm-xlg-xxlg {
+  .farm {
+    h2 {
+      margin-bottom: 20px;
+    }
+  }
+}
+@mixin farm-xsm-sm {
+  .farm {
+    &Item {
+      padding: 6px 20px;
+    }
+    .radio {
+      &.placeholder {
+        width: 100%;
+        max-width: unset;
+      }
+    }
+  }
+  .crypto {
+    padding: 16px 20px 10px 20px;
+    p {
+      font-size: 12px;
+      line-height: 16px;
+    }
+  }
+  .radio {
+    margin-bottom: 12px;
+    width: 100%;
+    justify-content: space-between;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+    &__row {
+      flex-direction: column;
+    }
+  }
+}

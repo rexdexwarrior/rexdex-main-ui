@@ -1,0 +1,218 @@
+.filter {
+  display: flex;
+  align-items: center;
+  margin-bottom: 14px;
+  justify-content: space-between;
+  &__side {
+    display: flex;
+    align-items: center;
+    h5 {
+      font-weight: 500;
+      margin-right: 70px;
+    }
+  }
+  &__btns {
+    display: flex;
+    align-items: center;
+    h5 {
+      font-weight: 500;
+      font-family: $title-font;
+    }
+    .check {
+      margin-right: 40px;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+  &__selects {
+    display: flex;
+    align-items: center;
+  }
+  .select {
+    font-family: $title-font;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    position: relative;
+    min-width: 170px;
+    cursor: pointer;
+    &__options {
+      max-height: 0;
+      overflow: hidden;
+      position: absolute;
+      top: 100%;
+      @include transition;
+      left: 0;
+      width: 100%;
+      border-radius: 0 0 5px 5px;
+      border: 1px solid transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: #111212;
+      &-item {
+        padding: 8px 14px;
+        @include transition;
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+    &.active {
+      .select__selected {
+        border-radius: 5px 5px 0 0;
+      }
+      .select__options {
+        max-height: 200px;
+      }
+    }
+    &__selected {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 14px;
+      box-sizing: border-box;
+      border-radius: 5px;
+      cursor: pointer;
+      box-sizing: border-box;
+    }
+    &.light {
+      margin-left: 20px;
+      .select {
+        &__selected {
+          background: $main;
+          border: 1px solid $main;
+          color: $black;
+          svg {
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
+    }
+    &.dark {
+      .select {
+        &__selected {
+          background: #111212;
+          border: 1px solid $main;
+          svg {
+            width: 18px;
+            margin-left: 8px;
+            color: $main;
+          }
+        }
+      }
+    }
+  }
+}
+@mixin filter-extraLarge {
+  .filter {
+    &__side {
+      h5 {
+        margin-right: 40px;
+      }
+    }
+    &__btns {
+      .check {
+        margin-right: 20px;
+      }
+    }
+  }
+  .check {
+    label {
+      font-size: 16px;
+      line-height: 22px;
+    }
+  }
+}
+@mixin filter-xxxxlg-xxxxxlg {
+  .filter {
+    &__side {
+      h5 {
+        margin-right: 20px;
+      }
+    }
+    .select {
+      font-size: 14px;
+      line-height: 22px;
+      min-width: 140px;
+    }
+  }
+  .check {
+    input {
+      &:checked + label {
+        span {
+          &::before {
+            left: 17px;
+          }
+        }
+      }
+    }
+    label {
+      font-size: 14px;
+      line-height: 20px;
+      span {
+        width: 34px;
+        height: 20px;
+        &::before {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+  }
+}
+@mixin filter-xxlg-xxxlg {
+  .filter {
+    &__btns {
+      .check {
+        margin-right: 12px;
+      }
+    }
+  }
+  .check {
+    label {
+      span {
+        margin-right: 6px;
+      }
+    }
+  }
+}
+@mixin filter-xlg-xxlg {
+  .filter {
+    flex-direction: column;
+    align-items: flex-start;
+    &__btns {
+      flex-wrap: wrap;
+      margin: 0 -6px;
+      .check {
+        margin: 6px;
+        label {
+          white-space: nowrap;
+        }
+      }
+    }
+    &__side {
+      margin-bottom: 16px;
+      flex-direction: column;
+      h5 {
+        width: 100%;
+        margin: 0 0 6px 0;
+      }
+    }
+  }
+}
+@mixin filter-xsm-sm {
+  .filter {
+    &__selects {
+      flex-direction: column;
+      width: 100%;
+      .select {
+        width: 100%;
+        margin-bottom: 12px;
+        &:last-child {
+          margin: 0;
+        }
+      }
+    }
+  }
+}

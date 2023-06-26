@@ -1,0 +1,177 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 300px;
+  width: calc(100% - 300px);
+  box-sizing: border-box;
+  padding: 30px 40px;
+
+  z-index: 11;
+  border-radius: 0 0 0 10px;
+  background: #171818;
+  &__logo {
+    display: none;
+  }
+  &::before {
+    left: 4px;
+    width: calc(100% - 4px);
+    position: absolute;
+    content: "";
+    bottom: -1px;
+    height: 1px;
+    background: $main;
+  }
+  &::after {
+    position: absolute;
+    top: 100%;
+    content: "";
+    @include transition;
+    width: 10px;
+    left: -1px;
+    height: 20px;
+    border-top: 1px solid $main;
+    border-left: 1px solid $main;
+    z-index: 4;
+    border-radius: 8px 0 0 0;
+    box-sizing: border-box;
+  }
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+
+    .button {
+      margin-left: 20px;
+    }
+  }
+}
+@mixin header-xxlg-xxxlg {
+  .header {
+    left: 240px;
+    width: calc(100% - 240px);
+    padding: 18px 20px;
+  }
+}
+@mixin header-lg-xlg {
+  .header {
+    width: 100%;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &__logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 140px;
+      img {
+        width: 100%;
+      }
+    }
+    &::before {
+      width: 100%;
+      left: 0;
+    }
+    &:after {
+      display: none;
+    }
+  }
+  .burger {
+    display: block;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    &::before {
+      top: 20%;
+      width: calc(100% - 0.4rem);
+      height: 4px;
+      background-color: $main;
+      border-radius: 0.125rem;
+      transition: all 0.3s ease;
+      content: "";
+      position: absolute;
+      left: 50%;
+      @include transformX;
+    }
+    span {
+      top: 50%;
+      width: calc(100% - 0.4rem);
+      height: 4px;
+      background-color: $main;
+      border-radius: 0.125rem;
+      transition: all 0.3s ease;
+      content: "";
+      position: absolute;
+      left: 50%;
+      @include transform;
+    }
+    &::after {
+      bottom: 20%;
+      width: calc(100% - 0.4rem);
+      height: 4px;
+      background-color: $main;
+      border-radius: 0.125rem;
+      transition: all 0.3s ease;
+      content: "";
+      position: absolute;
+      left: 50%;
+      @include transformX;
+    }
+    &.active {
+      &::before {
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%) rotate(45deg);
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+      &::after {
+        bottom: 50%;
+        -webkit-transform: translate(-50%, 50%) rotate(-45deg);
+        transform: translate(-50%, 50%) rotate(-45deg);
+      }
+    }
+  }
+}
+@mixin header-sm-md {
+  .header {
+    &__inner {
+      .button {
+        margin-left: 10px;
+        &.bordered {
+          img {
+            display: none;
+          }
+        }
+        span {
+          display: none;
+        }
+        svg {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+@mixin header-xsm-sm {
+  .header {
+    padding: 24px 16px;
+    &__logo {
+      width: 100px;
+    }
+    &__inner {
+      .button {
+        padding: 6px;
+        font-size: 14px;
+        line-height: 18px;
+        svg {
+          width: 16px;
+          height: 16px;
+        }
+        &.sett {
+          display: none;
+        }
+      }
+    }
+  }
+}

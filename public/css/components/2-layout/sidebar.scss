@@ -1,0 +1,313 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 100%;
+  z-index: 10;
+
+  background: linear-gradient(175.59deg, #1d262d 0%, #293238 100%);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  &::before {
+    position: absolute;
+    top: 115px;
+    right: 0;
+    width: 1px;
+    height: calc(100% - 115px);
+    content: "";
+    background: $main;
+  }
+  &__header {
+    padding: 22px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__logo {
+    width: 217px;
+    display: flex;
+    align-items: center;
+    height: 62px;
+    justify-content: center;
+    img {
+      width: 100%;
+    }
+  }
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(100% - 106px);
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    & {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    &-links {
+      padding: 40px 0 40px 18px;
+    }
+    &-socials {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 0;
+    }
+    &-social {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid $main;
+      color: $main;
+      @include transition;
+      margin: 0 8px;
+      &:hover {
+        opacity: 0.8;
+      }
+      svg {
+        width: 23px;
+        height: 23px;
+      }
+    }
+    &-link {
+      padding: 16px 24px;
+      border-radius: 8px 0 0 8px;
+      display: flex;
+      font-family: $title-font;
+      @include transition;
+      align-items: center;
+      font-weight: 500;
+      font-size: 20px;
+      z-index: 2;
+      line-height: 30px;
+      color: rgba($color: $white, $alpha: 0.7);
+      border: 1px solid transparent;
+      position: relative;
+      &::before {
+        position: absolute;
+        content: "";
+        top: -5px;
+        right: -2px;
+        @include transition;
+        width: 6px;
+        background: #202930;
+        height: calc(100% + 10px);
+        z-index: -1;
+        opacity: 0;
+      }
+      span {
+        width: 30px;
+        display: flex;
+        align-items: center;
+        @include transition;
+        z-index: 2;
+        justify-content: center;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 15px;
+        background: rgba($color: $white, $alpha: 0.2);
+        &::before {
+          position: absolute;
+          bottom: 100%;
+          content: "";
+          @include transition;
+          width: 10px;
+          right: -1.5px;
+          height: 10px;
+          opacity: 0;
+          border-bottom: 1px solid $main;
+          border-right: 1px solid $main;
+          z-index: 3;
+          border-radius: 0 0 6px 0;
+          box-sizing: border-box;
+        }
+        &::after {
+          position: absolute;
+          top: 100%;
+          content: "";
+          width: 10px;
+          @include transition;
+          right: -1.5px;
+          box-sizing: border-box;
+          height: 10px;
+          opacity: 0;
+          border-top: 1px solid $main;
+          border-right: 1px solid $main;
+          z-index: 3;
+          border-radius: 0 6px 0 0;
+        }
+        svg {
+          width: 17px;
+          height: 17px;
+        }
+      }
+      &.active {
+        color: $main;
+        border: 1px solid $main;
+        border-right: 1px solid transparent;
+        &::before {
+          opacity: 1;
+        }
+        span {
+          background: rgba($color: $main, $alpha: 0.2);
+          &::before {
+            opacity: 1;
+          }
+          &::after {
+            opacity: 1;
+          }
+        }
+      }
+    }
+    &-footer {
+      position: relative;
+      z-index: 1;
+      &::before {
+        position: absolute;
+        content: "";
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 300px;
+        background: url(../images/waves.svg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        z-index: -1;
+        display: none;
+      }
+      p {
+        padding: 10px;
+        background: rgba($color: $black, $alpha: 0.2);
+        text-align: center;
+        color: rgba($color: $white, $alpha: 0.7);
+      }
+    }
+  }
+}
+@mixin sidebar-xxxxlg-xxxxxlg {
+  .sidebar {
+    &__inner {
+      &-link {
+        font-size: 18px;
+        line-height: 22px;
+      }
+      &-links {
+        padding: 24px 0 24px 16px;
+      }
+      &-socials {
+        padding: 20px 0;
+      }
+      &-social {
+        width: 26px;
+        height: 26px;
+        svg {
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+  }
+}
+@mixin sidebar-xxxlg-xxxxlg {
+  .sidebar {
+    &__inner {
+      &-link {
+        font-size: 16px;
+        line-height: 20px;
+      }
+    }
+  }
+}
+@mixin sidebar-xxlg-xxxlg {
+  .sidebar {
+    width: 240px;
+    &::before {
+      height: calc(100% - 100px);
+      top: 100px;
+    }
+    &__inner {
+      height: calc(100% - 82px);
+    }
+    &__header {
+      padding: 10px;
+    }
+    &__logo {
+      width: 180px;
+    }
+  }
+}
+@mixin sidebar-lg-xlg {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background: rgba($color: #000000, $alpha: 0.4);
+    transform: translateX(-100%);
+    @include transition;
+    &::before {
+      display: none;
+    }
+    &.active {
+      @include transformReset;
+    }
+    &__logo {
+      display: none;
+    }
+    &__inner {
+      flex-direction: column;
+      -ms-flex-direction: column;
+      position: absolute;
+      justify-content: unset;
+      align-items: unset;
+      top: 0;
+      left: 0;
+      width: 100%;
+      max-width: 240px;
+      padding: 0;
+      z-index: 1;
+      box-sizing: border-box;
+      height: 100%;
+      overflow-y: auto;
+      background: linear-gradient(175.59deg, #1d262d 0%, #293238 100%);
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      &-link {
+        border: none;
+        padding: 15px;
+        text-align: left;
+        width: unset;
+        margin-right: 0;
+        font-size: 16px;
+        line-height: 1;
+        span {
+          &::before {
+            display: none;
+          }
+          &::after {
+            display: none;
+          }
+        }
+      }
+      &-links {
+        height: 100%;
+      }
+    }
+    .btn {
+      margin: 15px 0;
+      text-align: center;
+    }
+  }
+  .body.active {
+    overflow: hidden;
+  }
+}

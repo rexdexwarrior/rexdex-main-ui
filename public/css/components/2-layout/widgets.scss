@@ -1,0 +1,374 @@
+.search {
+  position: relative;
+  width: 100%;
+  max-width: 158px;
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  input {
+    font-family: $roboto-font;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: $white;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 5px;
+    padding: 4px 30px 4px 10px;
+    background: transparent;
+    border: 1px solid rgba($color: $white, $alpha: 0.2);
+    &::placeholder {
+      color: $white;
+      opacity: 1;
+    }
+  }
+  button {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 50%;
+    background: transparent;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba($color: $white, $alpha: 0.1);
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+.radio {
+  display: flex;
+  align-items: center;
+  p {
+    margin-right: 10px;
+  }
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  label {
+  }
+  &__btns {
+    border: 1px solid rgba($color: $white, $alpha: 0.2);
+    display: flex;
+    width: 70px;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  &__btn {
+    position: relative;
+    width: 50%;
+    input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+      z-index: 1;
+      &:checked + label {
+        background: $main;
+        color: $black;
+      }
+    }
+    label {
+      position: relative;
+      font-family: $roboto-font;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 22px;
+      box-sizing: border-box;
+      display: block;
+      color: $white;
+      @include transition;
+      text-align: center;
+      width: 100%;
+      text-align: center;
+      box-sizing: border-box;
+      padding: 4px;
+      border-radius: 5px;
+    }
+  }
+}
+.check {
+  position: relative;
+
+  input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 1;
+    cursor: pointer;
+    &:checked + label {
+      span {
+        background: $main;
+        &::before {
+          left: 23px;
+        }
+      }
+    }
+  }
+  label {
+    display: flex;
+    align-items: center;
+    font-family: $title-font;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    span {
+      width: 46px;
+      height: 23px;
+      border-radius: 50px;
+      background: #5a5a5a;
+      @include transition;
+      margin-right: 15px;
+      display: block;
+      position: relative;
+      &::before {
+        position: absolute;
+        top: 50%;
+        left: 2px;
+        @include transformY;
+        width: 21px;
+        @include transition;
+        height: 21px;
+        background: $white;
+        border-radius: 50%;
+        content: "";
+      }
+    }
+  }
+}
+
+.holdInput {
+  position: relative;
+  &.placeholder {
+    min-height: 72px;
+    display: block;
+    border-radius: 5px;
+  }
+  &__outer {
+    h5 {
+      margin-bottom: 10px;
+      &.placeholder {
+        min-height: 30px;
+        display: block;
+        border-radius: 5px;
+        max-width: 150px;
+      }
+    }
+  }
+  span {
+    position: absolute;
+    top: 50%;
+    @include transformY;
+    font-family: $title-font;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.03em;
+    color: $main;
+    right: 20px;
+  }
+  img {
+    position: absolute;
+    top: 50%;
+    @include transformY;
+    left: 12px;
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+  }
+  input {
+    padding: 23px 70px 23px 50px;
+    font-family: $title-font;
+    font-weight: 600;
+    font-size: 16px;
+    box-sizing: border-box;
+    width: 100%;
+    line-height: 24px;
+    letter-spacing: -0.03em;
+    color: $white;
+    background: linear-gradient(
+      175.59deg,
+      rgba(29, 38, 45, 0.5) 0%,
+      rgba(41, 50, 56, 0.5) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 1px 56px rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+    &::placeholder {
+      opacity: 1;
+      color: rgba($color: $white, $alpha: 0.7);
+    }
+  }
+}
+.gateInput {
+  padding: 13px 10px 13px 115px;
+  position: relative;
+
+  background: linear-gradient(
+    175.59deg,
+    rgba(29, 38, 45, 0.5) 0%,
+    rgba(41, 50, 56, 0.5) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 1px 56px rgba(255, 255, 255, 0.05);
+  border-radius: 5px;
+  &__options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+    background: linear-gradient(
+      175.59deg,
+      rgba(29, 38, 45, 1) 0%,
+      rgba(41, 50, 56, 1) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 1px 56px rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    & {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  }
+  &__option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    cursor: pointer;
+    @include transition;
+    border-bottom: 1px solid rgba($color: $white, $alpha: 0.2);
+    &:hover {
+      background: rgba($color: $white, $alpha: 0.1);
+    }
+    &-image {
+      width: 75px;
+      height: calc(100% - 10px);
+      object-fit: contain;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-right: 1px solid rgba($color: $white, $alpha: 0.2);
+      img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+      }
+    }
+    h6 {
+      width: calc(100% - 115px);
+    }
+  }
+  &__outer {
+    position: relative;
+
+    h5 {
+      margin-bottom: 10px;
+    }
+  }
+  &__image {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    width: 80px;
+    height: calc(100% - 10px);
+    object-fit: contain;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid rgba($color: $white, $alpha: 0.2);
+    img {
+      width: 56px;
+      height: 56px;
+      object-fit: cover;
+    }
+  }
+  span {
+    font-family: $title-font;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.03em;
+    color: $white;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  input {
+    font-family: $title-font;
+    font-weight: 600;
+    font-size: 16px;
+    box-sizing: border-box;
+    width: 100%;
+    background: transparent;
+    line-height: 24px;
+    letter-spacing: -0.03em;
+    color: $main;
+    padding: 0;
+    &::placeholder {
+      opacity: 1;
+      color: rgba($color: $white, $alpha: 0.7);
+    }
+  }
+}
+.placeholder {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.35);
+  background: linear-gradient(
+    20deg,
+    rgba(255, 255, 255, 0.15),
+    rgba(116, 118, 125, 0.05),
+    rgba(255, 255, 255, 0.15),
+    rgba(116, 118, 125, 0.05)
+  );
+  background-size: 300% 100%;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+  animation: placeholder 3s ease infinite;
+  &--title {
+    height: 23px;
+    width: 100%;
+  }
+  &--info {
+    height: 40px;
+    width: 50%;
+  }
+  &--btn {
+    width: 84px;
+    border-radius: 50px;
+    height: 40px;
+  }
+  &--more {
+    width: 200px;
+    height: 56px;
+    border-radius: 50px;
+  }
+}
+@keyframes placeholder {
+  0% {
+    background-position: 0% 0%;
+  }
+  80% {
+    background-position: 200% 0%;
+  }
+  100% {
+    background-position: 200% 0%;
+  }
+}

@@ -1,0 +1,30 @@
+// 1-main components
+@import "./components/1-main/variables.scss";
+@import "./components/1-main/mixin.scss";
+@import "./components/1-main/nulifier.scss";
+// 2-layout components
+@import "./components/2-layout/components.scss";
+@import "./components/2-layout/sidebar.scss";
+@import "./components/2-layout/header.scss";
+@import "./components/2-layout/crypto.scss";
+@import "./components/2-layout/filter.scss";
+@import "./components/2-layout/widgets.scss";
+@import "./components/2-layout/modal.scss";
+ 
+// 3-pages components
+@import "./components/3-pages/index.scss";
+@import "./components/3-pages/air.scss";
+@import "./components/3-pages/pool.scss";
+@import "./components/3-pages/farm.scss";
+@import "./components/3-pages/nft.scss";
+@import "./components/3-pages/referral.scss";
+@import "./components/3-pages/bridge.scss";
+@import "./components/3-pages/swap.scss";
+@import "./components/3-pages/deposit-farming.scss"; 
+@import "./components/3-pages/deposit-staking.scss";
+@import "./components/3-pages/PoolList.scss";
+ 
+
+// responsive
+@import "./components/2-layout/responsive.scss";
+   
