@@ -7,7 +7,7 @@ import Sidebar from "./Base/Sidebar";
 import Header from "./Base/Header";
 import Uniswap from "./Pages/Uniswap";
 // import Swap2 from "./Pages/Swap2";
-// import Pool2 from "./Pages/Pool2";
+// import Pool2 from "./Pages/Pool2"; 
 import AirDrop from "./Pages/AirDrop/AirDrop";
 import Farm from "./Pages/Farm/Farm";
 import Stake from "./Pages/Stake/Stake";
