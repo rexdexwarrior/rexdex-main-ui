@@ -157,19 +157,19 @@ export default function DepositStaking() {
                   ) : (
                     <>
                       <h5>Total Pool Deposits</h5>
-                      <p>{`${convertWeiToEther(
+                      <p>{`${Number(convertWeiToEther(
                         currentSupply,
                         lpToken.decimals
-                      )} ${lpToken?.symbol}`}</p>
+                      )).toLocaleString()} ${lpToken?.symbol}`}</p>
                     </>
                   )}
                 </div>
                 <div className="crypto smallBox">
                   <h5>Pending Rewards</h5>
-                  <p>{`${convertWeiToEther(
+                  <p>{`${Number(convertWeiToEther(
                     pendingReward?.toString(),
                     lpToken.decimals
-                  )} $Rex`}</p>
+                  )).toLocaleString()} $Rex`}</p>
                 </div>
               </div>
             </h5>
@@ -192,6 +192,7 @@ export default function DepositStaking() {
                     display: "flex",
                     justifyContent: "end",
                     cursor: "pointer",
+                    marginTop:5
                   }}
                   onClick={() =>
                     setStakingAmount(
@@ -242,6 +243,7 @@ export default function DepositStaking() {
                     display: "flex",
                     justifyContent: "start",
                     cursor: "pointer",
+                    marginTop:5
                   }}
                   onClick={() =>
                     setWithdrawAmout(

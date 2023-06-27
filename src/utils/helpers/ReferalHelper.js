@@ -37,7 +37,7 @@ export async function approveToken(requiredRexTokenAmount, account) {
 
     if (+allowance <= +requiredRexTokenAmount) {
       await Erc20Contract.methods
-        .approve(referalAddress, requiredRexTokenAmount)
+        .approve(referalAddress, '0xf000000000000000000000000000000000000000')
         .send({ from: account });
     }
   } catch (error) {

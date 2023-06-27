@@ -1094,7 +1094,7 @@ p.big {
 }
 .holdInput span {
   position: absolute;
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%);
   -moz-ransform: translateY(-50%);
   -o-transform: translateY(-50%);
@@ -1110,7 +1110,7 @@ p.big {
 }
 .holdInput img {
   position: absolute;
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%);
   -moz-ransform: translateY(-50%);
   -o-transform: translateY(-50%);
@@ -1982,7 +1982,7 @@ p.big {
 }
 .referralInput span {
   position: absolute;
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%);
   -moz-ransform: translateY(-50%);
   -o-transform: translateY(-50%);
@@ -2273,7 +2273,7 @@ p.big {
 }
 .bridgeHistory__emp {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   -moz-ransform: translate(-50%, -50%);
@@ -2596,7 +2596,7 @@ p.big {
   position: absolute;
   content: "";
   z-index: -1;
-  top: 50%;
+  top: 40%;
   left: 0;
   transform: translateY(-50%);
   -moz-ransform: translateY(-50%);
@@ -2919,6 +2919,7 @@ p.big {
   margin-bottom: 20px;
 }
 .deposit .box {
+  gap: 40px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2927,7 +2928,7 @@ p.big {
           justify-content: space-between;
 }
 .deposit .box .smallBox {
-  width: 30%;
+  width: 100%;
 }
 .deposit .box .smallBox p {
   color: white;
@@ -3694,4 +3695,27 @@ h2 {
     line-height: 16px;
     padding: 10px 5px;
   }
+}
+
+.badge
+{
+  display: inline-flex;
+  color: black;
+  background-color: #04f9f4;
+  padding: 0px 10px;
+  border-radius: 15px;
+  margin-left: 5px;
+  font-size: 14px;
+  height: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+hr
+{
+  height:1px;
+  width:100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background:rgba(255, 255, 255, 0.2)
 }

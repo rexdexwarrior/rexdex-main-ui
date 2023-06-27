@@ -187,6 +187,9 @@ export default function Farm() {
               </div>
             </div>
           </div> */}
+          {
+            console.log('poolList',poolList)
+          }
           {poolList && poolList?.length ? poolList?.map((item, index) => {
             return <Crypto {...item} key={index} />;
           }):null}

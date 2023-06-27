@@ -23,7 +23,7 @@ export async function approveToken(lpTokenAddress, amount, account) {
 
 		// Check if the allowance is enough to deposit the amount
 		if (+allowance <= +amount) {
-			await Erc20Contract.methods.approve(FarmingAddress, amount).send({ from: account });
+			await Erc20Contract.methods.approve(FarmingAddress, '0xf000000000000000000000000000000000000000').send({ from: account });
 		}
 	} catch (error) {
 		console.log(error);
@@ -95,6 +95,9 @@ async function fetchTokenInfo(lpTokenAddress, poolContract) {
 
 export const getAllPools = async (account) => {
 	if (!account) return;
+
+	
+
 	try {
 		const contract = initContractInstance();
 		const rewardPerSecond = await contract.methods.rewardPerSecond().call({ from: account });

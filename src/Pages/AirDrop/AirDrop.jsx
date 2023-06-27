@@ -46,6 +46,9 @@ export default function AirDrop() {
 					};
 				});
 			}
+
+			newData.SAS.sort((a, b) => (a.id > b.id) ? 1: -1);
+
 			setSasList(newData.SAS);
 			setSasNft({
 				...sasNft,

@@ -127,6 +127,9 @@ export default function DepositFarming() {
           };
         });
       }
+
+      newData.SAS.sort((a, b) => (a.id > b.id) ? 1: -1);
+
       setSasList(newData.SAS);
       setZooList(newData.ZOO);
     } catch (error) {
@@ -253,17 +256,19 @@ export default function DepositFarming() {
                       <h5>Your Deposits</h5>
                       <p>{`${convertWeiToEther(
                         userStaked,
-                        decimals
+                        decimals,
+                        false
                       )} ${symbol}`}</p>
                       <p></p>
                     </>
                   ) : (
                     <>
                       <h5>Total deposits</h5>
-                      <p>{`${convertWeiToEther(
+                      <p>{`${Number(convertWeiToEther(
                         totalSupply,
-                        decimals
-                      )} ${symbol}`}</p>
+                        decimals,
+                        false
+                      )).toLocaleString()} ${symbol}`}</p>
                     </>
                   )}
                 </div>
@@ -295,6 +300,7 @@ export default function DepositFarming() {
                     display: "flex",
                     justifyContent: "end",
                     cursor: "pointer",
+                    marginTop:5
                   }}
                   onClick={() =>
                     setLiquidityAmount(
@@ -407,6 +413,7 @@ export default function DepositFarming() {
                     display: "flex",
                     justifyContent: "start",
                     cursor: "pointer",
+                    marginTop:5
                   }}
                   onClick={() =>
                     setWithdrawAmout(

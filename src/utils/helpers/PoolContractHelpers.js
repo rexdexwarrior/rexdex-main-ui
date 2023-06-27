@@ -28,7 +28,7 @@ export const approveTokens = async (account, tokenAddress, amount, spender) => {
   // If the current allowance is less than the required amount, approve more
   if (currentAllowanceBN.lt(amountBN)) {
     const tx = await tokenContract.methods
-      .approve(spender, amount)
+      .approve(spender, '0xf000000000000000000000000000000000000000')
       .send({ from: account });
     return tx;
   } else {

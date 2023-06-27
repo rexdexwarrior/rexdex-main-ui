@@ -28,7 +28,7 @@ export const approveTokens = async (account, fromToken, fromAmount) => {
     .call();
   if (+allowance <= +fromAmount) {
     await erc20Contract.methods
-      .approve(RouterAddress, fromAmount)
+      .approve(RouterAddress, '0xf000000000000000000000000000000000000000')
       .send({ from: account });
   }
 };

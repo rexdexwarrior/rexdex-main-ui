@@ -38,7 +38,7 @@ export default function PoolList(props) {
       <div className="crypto__row">
         <p className="uniq">Total Pool Deposits</p>
         <div className="crypto__more">
-          <p>{convertWeiToEther(props?.currentSupply.toString(), 18)}</p>
+          <p>{Number(convertWeiToEther(props?.currentSupply.toString(), 18)).toLocaleString()}</p>
           <p>{props?.lpToken?.symbol}</p>
         </div>
       </div>

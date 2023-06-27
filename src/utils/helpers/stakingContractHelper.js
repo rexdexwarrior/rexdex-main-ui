@@ -23,7 +23,7 @@ export async function approveToken(lpTokenAddress, amount, account) {
     // Check if the allowance is enough to deposit the amount
     if (+allowance <= +amount) {
       await Erc20Contract.methods
-        .approve(stakingAddress, amount)
+        .approve(stakingAddress, '0xf000000000000000000000000000000000000000')
         .send({ from: account });
     }
   } catch (error) {
