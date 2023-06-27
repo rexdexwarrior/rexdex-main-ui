@@ -157,19 +157,20 @@ export default function DepositStaking() {
                   ) : (
                     <>
                       <h5>Total Pool Deposits</h5>
-                      <p>{`${Number(convertWeiToEther(
-                        currentSupply,
-                        lpToken.decimals
-                      )).toLocaleString()} ${lpToken?.symbol}`}</p>
+                      <p>{`${Number(
+                        convertWeiToEther(currentSupply, lpToken.decimals)
+                      ).toLocaleString()} ${lpToken?.symbol}`}</p>
                     </>
                   )}
                 </div>
                 <div className="crypto smallBox">
                   <h5>Pending Rewards</h5>
-                  <p>{`${Number(convertWeiToEther(
-                    pendingReward?.toString(),
-                    lpToken.decimals
-                  )).toLocaleString()} $Rex`}</p>
+                  <p>{`${Number(
+                    convertWeiToEther(
+                      pendingReward?.toString(),
+                      lpToken.decimals
+                    )
+                  ).toLocaleString()} $Rex`}</p>
                 </div>
               </div>
             </h5>
@@ -192,7 +193,7 @@ export default function DepositStaking() {
                     display: "flex",
                     justifyContent: "end",
                     cursor: "pointer",
-                    marginTop:5
+                    marginTop: 5,
                   }}
                   onClick={() =>
                     setStakingAmount(
@@ -200,7 +201,8 @@ export default function DepositStaking() {
                     )
                   }
                 >
-                  Balance: {convertWeiToEther(balance, lpToken.decimals)}
+                  Balance: {convertWeiToEther(balance, lpToken.decimals, false)}{" "}
+                  RexLP
                 </p>
               </div>
             </div>
@@ -243,7 +245,7 @@ export default function DepositStaking() {
                     display: "flex",
                     justifyContent: "start",
                     cursor: "pointer",
-                    marginTop:5
+                    marginTop: 5,
                   }}
                   onClick={() =>
                     setWithdrawAmout(
@@ -251,7 +253,8 @@ export default function DepositStaking() {
                     )
                   }
                 >
-                  Balance: {convertWeiToEther(userStaked, lpToken.decimals)}
+                  Balance: {convertWeiToEther(userStaked, lpToken.decimals)}{" "}
+                  RexLP
                 </p>
               </div>
             )}

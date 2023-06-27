@@ -72,8 +72,9 @@ export default function DepositFarming() {
   const updateSasNft = async (data) => {
     let boosting = await getSasBoosting(data?.id);
     if (boosting > 0) {
-      boosting = boosting / 10e12;
-      boosting = boosting > 1 ? (boosting - 1) * 100 : boosting * 100;
+      boosting = boosting / 1e12;
+      boosting -= 1;
+      boosting *= 100;
       boosting = boosting.toFixed(2).toString() + "%";
     }
     setSasNft((prevValue) => ({ ...prevValue, boosting, ...data }));
@@ -81,9 +82,13 @@ export default function DepositFarming() {
 
   const updateZooNft = async (data) => {
     let boosting = await getZooBoosting(data?.id);
+
+    console.log('zoo boosting', boosting)
+
     if (boosting > 0) {
-      boosting = boosting / 10e12;
-      boosting = boosting > 1 ? (boosting - 1) * 100 : boosting * 100;
+      boosting = boosting / 1e12;
+      boosting -= 1;
+      boosting *= 100;
       boosting = boosting.toFixed(2).toString() + "%";
     }
     setZooNft((prevValue) => ({ ...prevValue, boosting, ...data }));
@@ -122,13 +127,13 @@ export default function DepositFarming() {
           const uriData = uriDatas[index++];
           return {
             id: nft.tokenId,
-            image: uriData.image,
+            image: uriData.image+'?img-quality=60&img-format=auto&img-width=100',
             gateWay: uriData.name,
           };
         });
       }
 
-      newData.SAS.sort((a, b) => (a.id > b.id) ? 1: -1);
+      newData.SAS.sort((a, b) => (a.id > b.id ? 1 : -1));
 
       setSasList(newData.SAS);
       setZooList(newData.ZOO);
@@ -184,6 +189,26 @@ export default function DepositFarming() {
         }
       );
       navigate(`/farming`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onHarvest = async () => {
+    try {
+      const amount = converter(0, decimals);
+      /*       await toast.promise(approveToken(lpToken, amount, account), {
+        pending: "Approving token...",
+        success: "Token approved!",
+        error: "Token approval failed!",
+      }); */
+
+      await toast.promise(withdraw(poolId, amount, account), {
+        pending: "Harvesting...",
+        success: "Harvesting successfully!",
+        error: "Harvesting failed!",
+      });
+
     } catch (error) {
       console.log(error);
     }
@@ -264,11 +289,9 @@ export default function DepositFarming() {
                   ) : (
                     <>
                       <h5>Total deposits</h5>
-                      <p>{`${Number(convertWeiToEther(
-                        totalSupply,
-                        decimals,
-                        false
-                      )).toLocaleString()} ${symbol}`}</p>
+                      <p>{`${Number(
+                        convertWeiToEther(totalSupply, decimals, false)
+                      ).toLocaleString()} ${symbol}`}</p>
                     </>
                   )}
                 </div>
@@ -278,6 +301,14 @@ export default function DepositFarming() {
                     pendingReward?.toString(),
                     decimals
                   )} $Rex`}</p>
+                  <button
+                    type="button"
+                    className="button light"
+                    style={{ height: 40, width: "100%" }}
+                    onClick={onHarvest}
+                  >
+                    Harvest
+                  </button>
                 </div>
               </div>
             </h5>
@@ -300,15 +331,15 @@ export default function DepositFarming() {
                     display: "flex",
                     justifyContent: "end",
                     cursor: "pointer",
-                    marginTop:5
+                    marginTop: 5,
                   }}
                   onClick={() =>
                     setLiquidityAmount(
-                      convertWeiToEther(balance, decimals,false)
+                      convertWeiToEther(balance, decimals, false)
                     )
                   }
                 >
-                  Balance: {convertWeiToEther(balance, decimals)}
+                  Balance: {convertWeiToEther(balance, decimals, false)} RexLP
                 </p>
               </div>
             </div>
@@ -318,11 +349,11 @@ export default function DepositFarming() {
               >
                 <h5>SAS - NFT</h5>
                 {sasNft.boosting ? (
-                  <p>{`Sas Boosting: ${sasNft.boosting}`}</p>
+                  <p>{`SAS Boosting: ${sasNft.boosting}`}</p>
                 ) : null}
               </span>
               <GateInputComponent
-                placeholder="Select Sas Nft"
+                placeholder="Select SAS Nft"
                 initialValue={sasNft.nftGateWay}
                 nftName="SAS"
                 onValueChange={(value) => {
@@ -408,20 +439,21 @@ export default function DepositFarming() {
                     Withdraw
                   </button>
                 </div>
-				<p
+                <p
                   style={{
                     display: "flex",
                     justifyContent: "start",
                     cursor: "pointer",
-                    marginTop:5
+                    marginTop: 5,
                   }}
                   onClick={() =>
                     setWithdrawAmout(
-                      convertWeiToEther(userStaked, decimals,false)
+                      convertWeiToEther(userStaked, decimals, false)
                     )
                   }
                 >
-                  Balance: {convertWeiToEther(userStaked, decimals)}
+                  Balance: {convertWeiToEther(userStaked, decimals, false)}{" "}
+                  RexLP
                 </p>
               </div>
             )}

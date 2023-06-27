@@ -38,30 +38,30 @@ const ExistingPools = ({
         <>
           <div className="box">
             <p className="uniq">Your Total Pool Token</p>
-            <p>{(data?.userLiquidity / 10 ** 18)?.toFixed(2)}</p>
+            <p>{(data?.userLiquidity / 10 ** 18)}</p>
           </div>
           <div className="box">
             <p className="uniq">Your Pooled {data?.token0?.symbol}</p>
             <p>
-              {isNaN(data?.token0?.pooledShare.toFixed(2))
+              {isNaN(data?.token0?.pooledShare)
                 ? "0"
-                : data?.token0?.pooledShare.toFixed(2)}
+                : data?.token0?.pooledShare}
             </p>
           </div>
           <div className="box">
             <p className="uniq">Your Pooled {data?.token1?.symbol}</p>
             <p>
-              {isNaN(data?.token1?.pooledShare.toFixed(2))
+              {isNaN(data?.token1?.pooledShare)
                 ? "0"
-                : data?.token1?.pooledShare.toFixed(2)}
+                : data?.token1?.pooledShare}
             </p>
           </div>
           <div className="box">
             <p className="uniq">Your pool share</p>
             <p>
-              {isNaN(data?.userShare.toFixed(2))
+              {isNaN(data?.userShare)
                 ? "0"
-                : data?.userShare.toFixed(2)}
+                : data?.userShare}
               %
             </p>
           </div>

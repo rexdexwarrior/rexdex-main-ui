@@ -34,8 +34,8 @@ function useMetaMask() {
 		};
 
 		const handleAccountsChanged = async (accounts) => {
-			const iframe = document.getElementById('uniswap-iframe');
-			iframe.contentWindow.postMessage({ type: "accontChanged" }, "*");
+			//const iframe = document.getElementById('uniswap-iframe');
+			//iframe.contentWindow.postMessage({ type: "accontChanged" }, "*");
 			if (accounts.length === 0) {
 				
 				setIsConnected(false);
@@ -70,9 +70,9 @@ function useMetaMask() {
 	const connectWallet = async () => {
 		if (isInstalled) {
 			try {
-				const iframe = document.getElementById('uniswap-iframe');
+				//const iframe = document.getElementById('uniswap-iframe');
 				const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
-				iframe.contentWindow.postMessage({ type: "connectWallet" }, "*");
+				//iframe.contentWindow.postMessage({ type: "connectWallet" }, "*");
 				setIsConnected(true);
 				setAccount(accounts[0]);
 				localStorage.setItem("metamaskAccount", accounts[0]);
