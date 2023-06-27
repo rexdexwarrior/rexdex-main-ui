@@ -41,7 +41,7 @@ export default function AirDrop() {
 					const uriData = uriDatas[index++];
 					return {
 						id: nft.tokenId,
-						image: uriData.image,
+						image: uriData.image+'?img-quality=60&img-format=auto&img-width=100',
 						gateWay: uriData.name,
 					};
 				});
