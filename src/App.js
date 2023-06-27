@@ -7,7 +7,7 @@ import Sidebar from "./Base/Sidebar";
 import Header from "./Base/Header";
 // import Uniswap from "./Pages/Uniswap";
 // import Swap2 from "./Pages/Swap2";
-//  import Pool from "./Pages/Pool"; 
+import Pool from "./Pages/Pool";
 import Home from "./Pages/Home";
 import AirDrop from "./Pages/AirDrop/AirDrop";
 import Farm from "./Pages/Farm/Farm";
@@ -49,7 +49,7 @@ export default function App() {
 	}, [location]);
 	//const UniswapComponent = Uniswap;
 	// const SwapComponent = WithLayout(Uniswap);
-	//const PoolComponent = WithLayout(Pool);
+	const PoolComponent = WithLayout(Pool);
 	const HomeComponent = WithLayout(Home);
 	const AirDropComponent = WithLayout(AirDrop);
 	const BridgeComponent = WithLayout(Bridge);
@@ -74,8 +74,8 @@ export default function App() {
 				<Routes>
 					<Route exact path="" element={<HomeComponent />} />
 					<Route exact path="swap" element={<></>} />
-					<Route exact path="pool" element={<></>} />
-					
+					<Route exact path="pool" element={<PoolComponent />} />
+
 					<Route path="airdrop" element={<AirDropComponent />} />
 					<Route path="bridge" element={<BridgeComponent />} />
 					<Route path="farming" element={<FarmComponent />} />

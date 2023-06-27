@@ -1,5 +1,5 @@
 export const UniswapURL = process.env.REACT_APP_UNISWAP_UI_URL;
-console.log(UniswapURL)
+
 export const RouterAddress = process.env.REACT_APP_ROUTER_ADDRESS;
 export const FactoryAddress = process.env.REACT_APP_FACTORY_ADDRESS;
 export const FarmingAddress = process.env.REACT_APP_FARM_ADDRESS;

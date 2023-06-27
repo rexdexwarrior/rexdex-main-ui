@@ -13,7 +13,7 @@ import {
   getAllPairs,
   removeLiquidity,
 } from "../../utils/helpers/PoolContractHelpers";
-import { RouterAddress, baseToken, callApiTimer } from "../../config";
+import { RouterAddress, UniswapURL, baseToken, callApiTimer, rexToken } from "../../config";
 import useFetchTokenList from "../../utils/useFetchTokenList";
 import { convertWeiToEther, converter } from "../../utils/convertToBN";
 import { getTokenObject } from "../../utils/getToken";
@@ -22,6 +22,7 @@ import ExistingPools from "./ExistingPools.jsx";
 import RemoveLiquidityDialog from "./Modal/RemoveLiquidityDialog";
 import { getTokenBalances } from "../../utils/helpers/SwapContractHelper";
 import BigNumber from "bignumber.js";
+import { NavLink } from "react-router-dom";
 const initiLiquidityPayload = {
   tokenA: "",
   tokenB: "",
@@ -494,20 +495,28 @@ export default function Pool() {
           <div className="pool__more">
             <h4 className="uniq">Your liquidity</h4>
             <div className="pool__more-btns">
-              <button
+              {/* <button
                 disabled={!isWanChain}
                 className="button bordered"
                 onClick={() => openModal("pair")}
               >
                 Create a pair
-              </button>
-              <button
+              </button> */}
+              <NavLink target="_blank" to={`${UniswapURL}#/create/${rexToken}`} className="button bordered">
+                Create a pair
+              </NavLink>
+
+              <NavLink target="_blank" to={`${UniswapURL}#/add/${rexToken}`} className="button light">
+                Add Liquidity
+              </NavLink>
+
+              {/* <button
                 disabled={!isWanChain}
                 className="button light"
                 onClick={() => openModal("liquidity")}
               >
                 Add Liquidity
-              </button>
+              </button> */}
             </div>
           </div>
 

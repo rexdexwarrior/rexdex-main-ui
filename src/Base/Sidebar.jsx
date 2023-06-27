@@ -34,7 +34,7 @@ export default function Sidebar({ menu, closeFunc }) {
           <NavLink to="old-pool" className="sidebar__inner-link">
             <span>{poolIcon}</span> Old Pool
           </NavLink> */}
-          <NavLink to="https://swap.rexdex.finance/#/pool" className="sidebar__inner-link">
+          <NavLink to="pool" className="sidebar__inner-link">
             <span>{poolIcon}</span> Pool
           </NavLink>
           <NavLink to="airdrop" className="sidebar__inner-link">
