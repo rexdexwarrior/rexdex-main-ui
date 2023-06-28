@@ -9,6 +9,8 @@ const ExistingPools = ({
   setSelectedLiquidity,
   addInExistingPair,
 }) => {
+
+  //)
   return (
     <div className="crypto poolList">
       <div
@@ -20,15 +22,15 @@ const ExistingPools = ({
         </h5>
 
         <h5>
-          {Number(convertWeiToEther(data?.reserves?.reserve0, 18)) > 0
+          {Number(convertWeiToEther(data?.reserves?.reserve0, data?.token0?.decimals)) > 0
             ? Number(
-                convertWeiToEther(data?.reserves?.reserve0, 18)
+                convertWeiToEther(data?.reserves?.reserve0, data?.token0?.decimals)
               ).toLocaleString()
             : "-"}
           /
-          {Number(convertWeiToEther(data?.reserves?.reserve1, 18)) > 0
+          {Number(convertWeiToEther(data?.reserves?.reserve1, data?.token1?.decimals)) > 0
             ? Number(
-                convertWeiToEther(data?.reserves?.reserve1, 18)
+                convertWeiToEther(data?.reserves?.reserve1, data?.token1?.decimals)
               ).toLocaleString()
             : "-"}
         </h5>
