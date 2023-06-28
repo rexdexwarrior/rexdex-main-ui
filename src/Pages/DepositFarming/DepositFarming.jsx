@@ -378,7 +378,7 @@ export default function DepositFarming() {
               <span
                 style={{ display: "flex", justifyContent: "space-between" }}
               >
-                <h5>ZOO - NFT</h5>
+                <h5>ZOO Boosters - NFT</h5>
                 {zooNft.boosting ? (
                   <p>{`Zoo Boosting: ${zooNft.boosting}`}</p>
                 ) : null}
