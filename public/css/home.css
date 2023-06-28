@@ -122,6 +122,7 @@
 .home-gallery .home-gallery-item img
 {
     width:100%;
+    border-radius: 6px;
 }
 
 .home-gallery .home-gallery-item:hover img:first-child
