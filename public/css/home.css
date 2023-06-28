@@ -201,3 +201,15 @@
         line-height: 40px;
     }
 }
+
+@media (max-width: 426px) {
+    .home-gallery .home-gallery-item
+    {
+        width:100% !important;
+        margin-bottom:20px;
+    }
+    .home-gallery .home-gallery-item img
+    {
+        width:100% !important;
+    }
+}
