@@ -29,6 +29,7 @@ export default function Referral() {
   const { account, isWanChain } = useMetaMask();
   const [isLoading, setIsLoading] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [reload, setReload] = useState(0);
   const { showToast } = useCustomToast();
 
   const handleCopyClick = async () => {
@@ -109,7 +110,7 @@ export default function Referral() {
       }
     };
     fetchData();
-  }, [account]);
+  }, [account, reload]);
 
   const updateSasNft = (data) => {
     setSasNft((prevValue) => ({ ...prevValue, ...data }));
@@ -131,8 +132,10 @@ export default function Referral() {
         error: "Withdraw failed!",
       });
       setCheckQualification(false);
+      setReload((prev) => prev + 1);
     } catch (error) {
       console.log(error);
+      setReload((prev) => prev + 1);
     }
   };
   const onStake = async () => {
@@ -170,8 +173,11 @@ export default function Referral() {
       const referralLink = generateLink();
       setSasNft({ ...sasNft, link: referralLink });
       setCheckQualification(true);
+
+      setReload((prev) => prev + 1);
     } catch (error) {
       console.log(error);
+      setReload((prev) => prev + 1);
     }
   };
   const generateLink = () => {
@@ -216,23 +222,29 @@ export default function Referral() {
         <div className="referral">
           <h2>Referral/Staking</h2>
           <div className="referralItem">
-            <h5 className="uniq" style={{ textAlign: "center", fontWeight:'normal' }}>
+            <h5
+              className="uniq"
+              style={{ textAlign: "center", fontWeight: "normal" }}
+            >
               Your referral link will earn{" "}
-              <span style={{fontSize:24, fontWeight:'bold'}}>
+              <span style={{ fontSize: 24, fontWeight: "bold" }}>
                 {convertWeiToEther(
                   referalData?.referrerRewardPercentage,
                   18,
                   false
                 ) * 100}
-              
-              %</span> of your referral's farming earnings and give your referee a{" "}
-              <span style={{fontSize:24, fontWeight:'bold'}}>
-              {convertWeiToEther(
-                referalData?.refereeRewardPercentage,
-                18,
-                false
-              ) * 100}
-              %</span> boost on farming.
+                %
+              </span>{" "}
+              of your referral's farming earnings and give your referee a{" "}
+              <span style={{ fontSize: 24, fontWeight: "bold" }}>
+                {convertWeiToEther(
+                  referalData?.refereeRewardPercentage,
+                  18,
+                  false
+                ) * 100}
+                %
+              </span>{" "}
+              boost on farming.
             </h5>
             {/* <div className="holdInput__outer">
               <h5>My Holdings</h5>
@@ -344,8 +356,10 @@ export default function Referral() {
                     onClick={onStake}
                     disabled={
                       !isWanChain ||
-                      convertWeiToEther(referalData?.requiredRexTokens, 18) >
-                        convertWeiToEther(referalData?.userRexToken, 18)
+                      Number(
+                        convertWeiToEther(referalData?.requiredRexTokens, 18)
+                      ) >
+                        Number(convertWeiToEther(referalData?.userRexToken, 18))
                     }
                   >
                     Stake

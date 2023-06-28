@@ -42,7 +42,7 @@ export default function Header({ menu, setMenu }) {
             src={process.env.PUBLIC_URL + "/images/icons/rexHead.png"}
             alt="rexHead"
           />
-          REX {convertWeiToEther(rexBalance, 18)}
+          REX {Number(convertWeiToEther(rexBalance, 18)).toLocaleString()}
         </button>
 
         {!isConnected ? (
