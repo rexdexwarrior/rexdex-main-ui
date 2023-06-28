@@ -116,7 +116,7 @@
     display:flex;
     flex-direction: column;
     position:relative;
-    width:200px;
+    width:calc(25% - 30px)
 }
 
 .home-gallery .home-gallery-item img
@@ -186,6 +186,17 @@
         opacity: 0.5;
         width: 300px;
         top: 80px;
+    }
+}
+
+@media (max-width: 769px) {
+    .home-gallery .home-gallery-item
+    {
+        width:200px;
+    }
+    .home-gallery .home-gallery-item img
+    {
+        width:200px;
     }
 }
 
