@@ -116,7 +116,7 @@
     display:flex;
     flex-direction: column;
     position:relative;
-    width:180px;
+    width:200px;
 }
 
 .home-gallery .home-gallery-item img
