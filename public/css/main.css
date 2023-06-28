@@ -334,7 +334,7 @@ p.big {
           filter: blur(200px);
 }
 .wrapper:after {
-  position: absolute;
+  position: fixed;
   content: "";
   top: 156px;
   left: 0;
@@ -342,7 +342,8 @@ p.big {
   height: calc(100% - 156px);
   background: url(../images/bg.png);
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
+  background-position: bottom center;
   -o-object-position: center;
      object-position: center;
 }
