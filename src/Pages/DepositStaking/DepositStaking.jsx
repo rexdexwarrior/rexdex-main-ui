@@ -82,17 +82,22 @@ export default function DepositStaking() {
     }
   };
 
+  const onHarvest = async () => {
+    try {
+      const amount = converter(0, lpToken?.decimals);
+      await toast.promise(withdraw(poolId, amount, account), {
+        pending: "Harvesting...",
+        success: "Harvesting successfully!",
+        error: "Harvesting failed!",
+      });
+      // navigate(`/staking`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const onWithdaw = async () => {
     try {
       const amount = converter(withdrawAmout, lpToken?.decimals);
-      /*       await toast.promise(
-        approveToken(lpToken?.contractAddress, amount, account),
-        {
-          pending: "Approving token...",
-          success: "Token approved!",
-          error: "Token approval failed!",
-        }
-      ); */
       await toast.promise(withdraw(poolId, amount, account), {
         pending: "Withdrawing...",
         success: "Withdraw successfully!",
@@ -165,12 +170,20 @@ export default function DepositStaking() {
                 </div>
                 <div className="crypto smallBox">
                   <h5>Pending Rewards</h5>
-                  <p>{`${Number(
-                    convertWeiToEther(
-                      pendingReward?.toString(),
-                      lpToken.decimals
-                    )
-                  ).toLocaleString()} $Rex`}</p>
+                  <p>{`${convertWeiToEther(
+                    pendingReward,
+                    lpToken.decimals,
+                    false
+                  )} REX`}</p>
+
+                  <button
+                    type="button"
+                    className="button light"
+                    style={{ height: 40, width: "100%" }}
+                    onClick={onHarvest}
+                  >
+                    Harvest
+                  </button>
                 </div>
               </div>
             </h5>
@@ -202,7 +215,7 @@ export default function DepositStaking() {
                   }
                 >
                   Balance: {convertWeiToEther(balance, lpToken.decimals, false)}{" "}
-                  RexLP
+                  REX
                 </p>
               </div>
             </div>
@@ -253,8 +266,8 @@ export default function DepositStaking() {
                     )
                   }
                 >
-                  Balance: {convertWeiToEther(userStaked, lpToken.decimals)}{" "}
-                  RexLP
+                  Balance:{" "}
+                  {convertWeiToEther(userStaked, lpToken.decimals, false)} REX
                 </p>
               </div>
             )}

@@ -12,6 +12,6 @@ export const converter = (amount, decimal) => {
 export const convertWeiToEther = (wei, decimals = 18, toFixed = true) => {
 	//alert(wei)
 	if (!toFixed) {
-		return new BigNumber(wei.toString()).dividedBy(10 ** decimals).toString();
-	} else return new BigNumber(wei.toString()).dividedBy(10 ** decimals).toFixed(5);
+		return new BigNumber(wei?.toString()).dividedBy(10 ** decimals)?.toString();
+	} else return new BigNumber(wei?.toString()).dividedBy(10 ** decimals)?.toFixed(5);
 };

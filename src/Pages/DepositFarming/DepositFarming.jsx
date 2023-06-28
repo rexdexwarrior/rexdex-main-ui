@@ -300,7 +300,7 @@ export default function DepositFarming() {
                   <p>{`${convertWeiToEther(
                     pendingReward?.toString(),
                     decimals
-                  )} $Rex`}</p>
+                  )} REX`}</p>
                   <button
                     type="button"
                     className="button light"

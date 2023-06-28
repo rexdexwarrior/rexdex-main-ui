@@ -26,7 +26,7 @@ export default function Referral() {
   });
   const [checkQualification, setCheckQualification] = useState(false);
   const [sasList, setSasList] = useState([]);
-  const { account ,isWanChain} = useMetaMask();
+  const { account, isWanChain } = useMetaMask();
   const [isLoading, setIsLoading] = useState(true);
   const [copied, setCopied] = useState(false);
   const { showToast } = useCustomToast();
@@ -74,7 +74,8 @@ export default function Referral() {
           const uriData = uriDatas[index++];
           return {
             id: nft.tokenId,
-            image: uriData.image+'?img-quality=60&img-format=auto&img-width=100',
+            image:
+              uriData.image + "?img-quality=60&img-format=auto&img-width=100",
             gateWay: uriData.name,
           };
         });
@@ -177,6 +178,9 @@ export default function Referral() {
     let base64EncodedWalletAddress = btoa(account);
     return `${baseUrl}/?referrer=${base64EncodedWalletAddress}`;
   };
+
+  console.log("referalData", referalData);
+
   return (
     <Layout>
       {isLoading ? (
@@ -212,20 +216,23 @@ export default function Referral() {
         <div className="referral">
           <h2>Referral/Staking</h2>
           <div className="referralItem">
-            <h5 className="uniq">
+            <h5 className="uniq" style={{ textAlign: "center", fontWeight:'normal' }}>
               Your referral link will earn{" "}
-              {convertWeiToEther(
-                referalData?.referrerRewardPercentage,
-                18,
-                false
-              )}
-              % of your referral's farming earnings and give your referee a{" "}
+              <span style={{fontSize:24, fontWeight:'bold'}}>
+                {convertWeiToEther(
+                  referalData?.referrerRewardPercentage,
+                  18,
+                  false
+                ) * 100}
+              
+              %</span> of your referral's farming earnings and give your referee a{" "}
+              <span style={{fontSize:24, fontWeight:'bold'}}>
               {convertWeiToEther(
                 referalData?.refereeRewardPercentage,
                 18,
                 false
-              )}
-              % boost on farming.
+              ) * 100}
+              %</span> boost on farming.
             </h5>
             {/* <div className="holdInput__outer">
               <h5>My Holdings</h5>
@@ -244,24 +251,40 @@ export default function Referral() {
               </div>
             </div> */}
 
-            <div className="crypto smallBox">
+            <div className="crypto smallBox" style={{ marginTop: 20 }}>
               <div
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
-                <h5 className="uniq">Required Rex Tokens </h5>
-                <p>{convertWeiToEther(referalData?.requiredRexTokens, 18)}</p>
+                <h5 className="uniq" style={{ marginBottom: 5 }}>
+                  Required Tokens{" "}
+                </h5>
+                <p>
+                  {Number(
+                    convertWeiToEther(referalData?.requiredRexTokens, 18)
+                  ).toLocaleString()}{" "}
+                  REX
+                </p>
               </div>
               <div
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
-                <h5 className="uniq">User Rex Tokens</h5>
-                <p>{convertWeiToEther(referalData?.userRexToken, 18)}</p>
+                <h5 className="uniq" style={{ marginBottom: 5 }}>
+                  User Tokens
+                </h5>
+                <p>
+                  {Number(
+                    convertWeiToEther(referalData?.userRexToken, 18)
+                  ).toLocaleString()}{" "}
+                  REX
+                </p>
               </div>
             </div>
 
@@ -319,7 +342,11 @@ export default function Referral() {
                     type="button"
                     className="button light"
                     onClick={onStake}
-                    disabled={!isWanChain}
+                    disabled={
+                      !isWanChain ||
+                      convertWeiToEther(referalData?.requiredRexTokens, 18) >
+                        convertWeiToEther(referalData?.userRexToken, 18)
+                    }
                   >
                     Stake
                   </button>

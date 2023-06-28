@@ -3,9 +3,40 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { convertWeiToEther } from "../../utils/convertToBN";
 import { timestampToHumanReadable } from "../../utils/date";
+import BigNumber from "bignumber.js";
 
 export default function PoolList(props) {
   const navigate = useNavigate();
+  //console.log('props', props)
+
+  const getUserSharePercent = (props) => {
+    if (props?.userStaked === "0") return 0;
+
+    let sharePercent = BigNumber(
+      convertWeiToEther(props?.userStaked, props?.rewardToken?.decimals)
+    ).div(BigNumber(convertWeiToEther(props?.currentSupply, props?.rewardToken?.decimals)).multipliedBy(100));
+
+
+    return Number(sharePercent.toString()).toFixed(2);
+  }
+
+  const getUserRate = (props) => {
+    if (props?.userStaked === "0") return 0;
+
+    let shareRatio = BigNumber(
+      convertWeiToEther(props?.userStaked, props?.rewardToken?.decimals)
+    ).div(BigNumber(convertWeiToEther(props?.currentSupply, props?.rewardToken?.decimals)));
+    let sharePerSec = BigNumber(
+      convertWeiToEther(props?.rewardPerSecond?.toString(), props?.rewardToken?.decimals, false)
+    )
+    
+    let myRealSharePerDay = shareRatio
+      .multipliedBy(sharePerSec)
+      .multipliedBy(86400);
+
+    //console.log('shareRatio',Number(myRealSharePerDay.toString()).toFixed(6))
+    return Number(myRealSharePerDay.toString()).toFixed(4);
+  };
 
   return (
     <motion.div
@@ -20,7 +51,7 @@ export default function PoolList(props) {
           <h5 className="uniq">Stake {props?.lpToken?.name}</h5>
         </div>
         <button
-		disabled={!props.isWanChain}
+          disabled={!props.isWanChain}
           onClick={() => navigate(`/deposit-staking`, { state: { props } })}
           className="button depos"
         >
@@ -38,8 +69,18 @@ export default function PoolList(props) {
       <div className="crypto__row">
         <p className="uniq">Total Pool Deposits</p>
         <div className="crypto__more">
-          <p>{Number(convertWeiToEther(props?.currentSupply.toString(), 18)).toLocaleString()}</p>
+          <p>{Number(convertWeiToEther(props?.currentSupply.toString(), props?.rewardToken?.decimals)).toLocaleString()}</p>
           <p>{props?.lpToken?.symbol}</p>
+        </div>
+      </div>
+
+      <div className="crypto__row">
+        <p className="uniq">Pool Rate</p>
+        <div className="crypto__more">
+          <p>{`${Number(
+            convertWeiToEther(props?.rewardPerSecond?.toString(), props?.rewardToken?.decimals) *
+            86400
+          ).toLocaleString()} ${props?.rewardToken?.symbol} / Days`}</p>
         </div>
       </div>
 
@@ -56,6 +97,31 @@ export default function PoolList(props) {
           <p>{timestampToHumanReadable(props?.bonusEndTimestamp)}</p>
         </div>
       </div>
+
+
+      {props?.userStaked > 0 && <>
+        <hr />
+        <div className="crypto__row">
+          <p className="uniq">Your deposited</p>
+          <div className="crypto__more">
+            <p>
+              {Number(
+                convertWeiToEther(
+                  props?.userStaked?.toString(),
+                  props?.rewardToken?.decimals
+                )
+              ).toLocaleString()} {props?.rewardToken?.symbol} ({getUserSharePercent(props)}%)
+            </p>
+          </div>
+        </div>
+        <div className="crypto__row">
+          <p className="uniq">Estimated {props?.rewardToken?.symbol} reward</p>
+          <div className="crypto__more">
+              <p>{getUserRate(props)} {props?.rewardToken?.symbol} / Day</p>
+          </div>
+        </div>
+      </>
+      }
     </motion.div>
   );
 }

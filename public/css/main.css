@@ -220,6 +220,10 @@ p.big {
 .button.light:hover {
   opacity: 0.8;
 }
+.button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 .button.bordered {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1169,7 +1173,7 @@ p.big {
 }
 .holdInput img {
   position: absolute;
-  top: 40%;
+  top: 35%;
   transform: translateY(-50%);
   -moz-ransform: translateY(-50%);
   -o-transform: translateY(-50%);
