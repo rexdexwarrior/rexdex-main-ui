@@ -44,6 +44,13 @@ export const swapIcon = (
     />
   </svg>
 );
+export const airdropIcon = (
+  <svg width="14" height="14" viewBox="0 0 288 288" fill="none">
+    <path d="M186 282c13 0 24-11 24-24v-30c0-13-11-24-24-24h-8l75-72c14-5 28-10 28-27 0-50-60-99-137-99S7 55 7 105c0 17 14 22 28 27l75 72h-8c-13 0-24 11-24 24v30c0 13 11 24 24 24h84zm-42-162c-25 0-88-2-114-16 5-41 55-74 114-74s109 33 114 74c-26 14-89 16-114 16zm6 24c21 0 34-1 34-1l-34 62v-61zm81-7l-63 60 30-55c15-1 33-5 33-5zm-93 7v61l-34-62s13 1 34 1zm-81-7s18 4 33 5l30 55zm45 121v-30h84v30h-84z"
+    fill="currentColor"
+    />
+  </svg>
+);
 export const poolIcon = (
   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
     <path

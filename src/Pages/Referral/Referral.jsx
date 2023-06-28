@@ -53,7 +53,7 @@ export default function Referral() {
   const fetchNftsData = async (acc) => {
     try {
       const response = await fetch(
-        `https://nestjs-crash-production.up.railway.app/nft/list/${acc}`
+        `https://nfts.rexdex.finance/api/sas/${acc}`
       );
       const data = await response.json();
       const fetchPromises = [];

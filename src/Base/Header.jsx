@@ -5,7 +5,7 @@ import { formatAddress } from "../utils/addressShortened";
 import { getTokenBalances } from "../utils/helpers/SwapContractHelper";
 import { rexToken } from "../config";
 import { convertWeiToEther } from "../utils/convertToBN";
-
+import { NavLink } from "react-router-dom";
 export default function Header({ menu, setMenu }) {
   const { isConnected, account, connectWallet, isWanChain } = useMetaMask();
   const [rexBalance, setRexBalance] = useState("0.00");
@@ -30,7 +30,10 @@ export default function Header({ menu, setMenu }) {
   return (
     <div className="header">
       <div className="header__logo">
-        <img src={process.env.PUBLIC_URL + "/images/logo.png"} alt="logo" />
+       
+        <NavLink to="">
+          <img src={process.env.PUBLIC_URL + "/images/logo.png"} alt="logo" />
+        </NavLink>
       </div>
       <div className="header__inner">
         {/* <button className="button sett">{set}</button> */}
