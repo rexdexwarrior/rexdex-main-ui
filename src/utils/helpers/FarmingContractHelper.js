@@ -94,9 +94,10 @@ async function fetchTokenInfo(lpTokenAddress, poolContract) {
 }
 
 export const getAllPools = async (account) => {
-	if (!account) return;
-
-	
+	let web3_2 = web3;
+	if (!account) {
+		web3_2 = new Web3(new Web3.providers.HttpProvider('https://gwan-ssl.wandevs.org:56891/'));
+	}
 
 	try {
 		const contract = initContractInstance();
@@ -107,11 +108,11 @@ export const getAllPools = async (account) => {
 		const poolDataPromises = Array.from({ length: poolCount }, async (_, i) => {
 			const poolInfo = await contract.methods.poolInfo(i).call({ from: account });
 
-			const pair = new web3.eth.Contract(PairV2Abi, poolInfo[0]);
+			const pair = new web3_2.eth.Contract(PairV2Abi, poolInfo[0]);
 
 			const [token0Address, token1Address] = await Promise.all([pair.methods.token0().call(), pair.methods.token1().call()]);
 
-			const [token0, token1] = [new web3.eth.Contract(ERC20Abi, token0Address), new web3.eth.Contract(ERC20Abi, token1Address)];
+			const [token0, token1] = [new web3_2.eth.Contract(ERC20Abi, token0Address), new web3_2.eth.Contract(ERC20Abi, token1Address)];
 			const [token0Symbol, token1Symbol] = await Promise.all([token0.methods.symbol().call(), token1.methods.symbol().call()]);
 
 			return { poolId: i, ...poolInfo, token0Symbol, token1Symbol };
@@ -127,7 +128,7 @@ export const getAllPools = async (account) => {
 
 		const [tokenDataArray] = await Promise.all([Promise.allSettled(tokenDataPromises)]);
 
-		const userStakedInfoPromises = poolDataArray.map(async (_, index) => {
+		let userStakedInfoPromises = poolDataArray.map(async (_, index) => {
 			try {
 				const userInfo = await contract.methods.userInfo(index, account).call({ from: account });
 				// get user's boosting
@@ -137,6 +138,7 @@ export const getAllPools = async (account) => {
 				console.error("Error fetching user staking information:", err);
 			}
 		});
+
 
 		const [userStakedInfoArray] = await Promise.all([Promise.allSettled(userStakedInfoPromises)]);
 
@@ -152,8 +154,8 @@ export const getAllPools = async (account) => {
 				lpToken: poolData.lpToken,
 				poolRate,
 				...(tokenDataArray[index].status === "fulfilled" ? tokenDataArray[index].value : {}),
-				userStaked: userStakedInfoArray[index].status === "fulfilled" ? userStakedInfoArray[index].value.amount : null,
-				userBoosting: userStakedInfoArray[index].status === "fulfilled" ? userStakedInfoArray[index].value.userBoosting : null,
+				userStaked: account ? userStakedInfoArray[index].status === "fulfilled" ? userStakedInfoArray[index].value.amount : null : 0,
+				userBoosting: account ? userStakedInfoArray[index].status === "fulfilled" ? userStakedInfoArray[index].value.userBoosting : null : 0,
 				rewardPerSecond,
 				symbol0: poolData.token0Symbol,
 				symbol1: poolData.token1Symbol,

@@ -32,7 +32,13 @@ export async function approveToken(lpTokenAddress, amount, account) {
   }
 }
 
-export async function getPools(userAddress) {
+export async function getPools(account) {
+
+  let web3_2 = web3;
+  if (!account) {
+    web3_2 = new Web3(new Web3.providers.HttpProvider('https://gwan-ssl.wandevs.org:56891/'));
+  }
+
   try {
     const contract = initWeb3();
 
@@ -43,11 +49,11 @@ export async function getPools(userAddress) {
       const poolInfo = await contract.methods.poolInfo(i).call();
 
       // Get user-specific staking information
-      const userInfo = await contract.methods.userInfo(i, userAddress).call();
+      const userInfo = await contract.methods.userInfo(i, account ?? '0x0000000000000000000000000000000000000000').call();
 
       // Get ERC20 token details for the LP token and the reward token
-      const lpTokenContract = new web3.eth.Contract(ERC20Abi, poolInfo.lpToken);
-      const rewardTokenContract = new web3.eth.Contract(
+      const lpTokenContract = new web3_2.eth.Contract(ERC20Abi, poolInfo.lpToken);
+      const rewardTokenContract = new web3_2.eth.Contract(
         ERC20Abi,
         poolInfo.rewardToken
       );
@@ -74,8 +80,8 @@ export async function getPools(userAddress) {
       poolData.push({
         ...poolInfo,
         poolId: i,
-        userStaked: userInfo.amount,
-        userRewardDebt: userInfo.rewardDebt,
+        userStaked: account ? userInfo.amount : 0,
+        userRewardDebt: account ? userInfo.rewardDebt : 0,
         lpToken: {
           contractAddress: poolInfo.lpToken,
           name: lpTokenName,

@@ -14,9 +14,7 @@ export default function Farm() {
   const [poolList, setPoolList] = useState([]);
 
   useEffect(() => {
-    if (!!account) {
       fetchAllPools(account);
-    }
   }, [account]);
 
   useEffect(() => {
@@ -32,10 +30,10 @@ export default function Farm() {
   }, [account,isWanChain]);
 
   const fetchAllPools = async (account) => {
-    if (!!account) {
+    //if (!!account) {
       const poolList = await getAllPools(account);
       setPoolList(poolList);
-    }
+    //}
   };
   const stakedChange = () => {
     setStaked(!staked);

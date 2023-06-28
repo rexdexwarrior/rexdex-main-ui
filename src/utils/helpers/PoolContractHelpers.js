@@ -125,8 +125,14 @@ export const getPair = async (tokenA, tokenB) => {
 };
 
 export const getAllPairs = async (account) => {
+  let web3_2 = web3;
+  if (!account) {
+    web3_2 = new Web3(new Web3.providers.HttpProvider('https://gwan-ssl.wandevs.org:56891/'));
+  }
+  
+
   try {
-    const factoryContract = new web3.eth.Contract(FactoryAbi, FactoryAddress);
+    const factoryContract = new web3_2.eth.Contract(FactoryAbi, FactoryAddress);
     const pairsLength = await factoryContract.methods.allPairsLength().call();
 
     const fetchPairInfo = async (i) => {
@@ -134,17 +140,25 @@ export const getAllPairs = async (account) => {
         const pairAddress = await factoryContract.methods
           .allPairs(i)
           .call({ from: account });
-        const pair = new web3.eth.Contract(PairV2Abi, pairAddress);
+
+        
+
+
+        const pair = new web3_2.eth.Contract(PairV2Abi, pairAddress);
 
         const [token0Address, token1Address] = await Promise.all([
           pair.methods.token0().call(),
           pair.methods.token1().call(),
         ]);
 
+       
+
         const [token0, token1] = [
-          new web3.eth.Contract(ERC20Abi, token0Address),
-          new web3.eth.Contract(ERC20Abi, token1Address),
+          new web3_2.eth.Contract(ERC20Abi, token0Address),
+          new web3_2.eth.Contract(ERC20Abi, token1Address),
         ];
+
+        
 
         const [token0Symbol, token1Symbol, token0Decimals, token1Decimals] =
           await Promise.all([
@@ -153,16 +167,24 @@ export const getAllPairs = async (account) => {
             token0.methods.decimals().call(),
             token1.methods.decimals().call(),
           ]);
-
-        const [reserves, totalSupply, userLiquidity] = await Promise.all([
+         
+        let [reserves, totalSupply, userLiquidity] = await Promise.all([
           pair.methods.getReserves().call(),
           pair.methods.totalSupply().call(),
-          pair.methods.balanceOf(account).call(),
+          pair.methods.balanceOf(account ?? '0x0000000000000000000000000000000000000000').call(),
         ]);
 
-        const userShare = (userLiquidity / totalSupply) * 100;
-        const poolToken0Share = (reserves[0] / 10 ** 18 / 100) * userShare;
-        const poolToken1Share = (reserves[1] / 10 ** 18 / 100) * userShare;
+        let userShare = (userLiquidity / totalSupply) * 100;
+        let poolToken0Share = (reserves[0] / 10 ** 18 / 100) * userShare;
+        let poolToken1Share = (reserves[1] / 10 ** 18 / 100) * userShare;
+
+        if (!account)
+        {
+          userLiquidity = 0; 
+          userShare = 0;
+          poolToken0Share = 0;
+          poolToken1Share = 0;
+        }
 
         return {
           pairAddress,

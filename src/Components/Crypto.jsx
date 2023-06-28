@@ -3,12 +3,12 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { convertWeiToEther } from "../utils/convertToBN";
 import BigNumber from "bignumber.js";
-
+import useMetaMask from "../utils/useMetaMask";
 export default function Crypto(props) {
   const navigate = useNavigate();
+  const { account, connectWallet } = useMetaMask();
 
   const getBoostPercent = (boosting, showPercent = true) => {
-    
     if (boosting > 0) {
       boosting = boosting / 1e12;
       boosting -= 1;
@@ -19,18 +19,21 @@ export default function Crypto(props) {
     return boosting;
   };
 
-  console.log('Boosting',props?.userBoosting)
+  console.log("Boosting", props?.userBoosting);
 
   const getUserSharePercent = (props) => {
     if (props?.userStaked === "0") return 0;
 
     let sharePercent = BigNumber(
       convertWeiToEther(props?.userStaked, props?.decimals)
-    ).div(BigNumber(convertWeiToEther(props?.totalSupply, props?.decimals)).multipliedBy(100));
+    ).div(
+      BigNumber(
+        convertWeiToEther(props?.totalSupply, props?.decimals)
+      ).multipliedBy(100)
+    );
 
-    
     return Number(sharePercent.toString()).toFixed(2);
-  }
+  };
 
   const getUserRate = (props) => {
     if (props?.userStaked === "0") return 0;
@@ -41,7 +44,7 @@ export default function Crypto(props) {
     let sharePerSec = BigNumber(
       convertWeiToEther(props?.poolRate?.toString(), props?.decimals, false)
     ).multipliedBy(BigNumber(props?.Multiplier));
-      
+
     let boostShareAmountPerSec = sharePerSec.multipliedBy(
       BigNumber(getBoostPercent(props?.userBoosting, false)).div(100)
     );
@@ -68,20 +71,39 @@ export default function Crypto(props) {
       className="crypto"
     >
       <div className="crypto__row">
-        <div className="crypto__name" style={props?.userStaked <= 0 ? { opacity: 0.4 } : {}}>
+        <div
+          className="crypto__name"
+          style={props?.userStaked <= 0 ? { opacity: 0.4 } : {}}
+        >
           <h5 style={{ display: "flex", alignItems: "center" }}>
             {props?.symbol0} / {props?.symbol1}{" "}
             <span className="badge">{props?.Multiplier}x</span>
           </h5>
         </div>
-        <button
-          onClick={() => navigate(`/deposit-farming`, { state: { props } })}
-          className="button depos"
-        >
-          {props.userStaked > 0 ? "Deposit / Withdraw" : " Deposit"}
-        </button>
+        {account ? (
+          <>
+            <button
+              onClick={() => navigate(`/deposit-farming`, { state: { props } })}
+              className="button depos"
+            >
+              {props.userStaked > 0 ? "Deposit / Withdraw" : "Deposit"}
+            </button>
+          </>
+        ) : (
+          <>
+           <button
+              onClick={() => connectWallet()}
+              className="button depos"
+            >
+              Connect Wallet
+            </button>
+          </>
+        )}
       </div>
-      <div className="crypto__row" style={props?.userStaked <= 0 ? { opacity: 0.4 } : {}}>
+      <div
+        className="crypto__row"
+        style={props?.userStaked <= 0 ? { opacity: 0.4 } : {}}
+      >
         <p className="uniq">Total deposited</p>
         <div className="crypto__more">
           <p>
@@ -92,7 +114,10 @@ export default function Crypto(props) {
           <p>{props?.symbol}</p>
         </div>
       </div>
-      <div className="crypto__row" style={props?.userStaked <= 0 ? { opacity: 0.4 } : {}}>
+      <div
+        className="crypto__row"
+        style={props?.userStaked <= 0 ? { opacity: 0.4 } : {}}
+      >
         <p className="uniq">Pool Rate</p>
         <p>{`${Number(
           convertWeiToEther(props?.poolRate?.toString(), props?.decimals) *
@@ -119,7 +144,8 @@ export default function Crypto(props) {
                     props?.userStaked?.toString(),
                     props?.decimals
                   )
-                ).toLocaleString()} {props?.symbol} ({getUserSharePercent(props)}%)
+                ).toLocaleString()}{" "}
+                {props?.symbol} ({getUserSharePercent(props)}%)
               </p>
             </div>
           </div>

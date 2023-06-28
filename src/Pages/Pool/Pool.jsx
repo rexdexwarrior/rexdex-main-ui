@@ -54,9 +54,9 @@ export default function Pool() {
     setIsLoading(false);
   };
   useEffect(() => {
-    if (!!account) {
+    //if (!!account) {
       getAllLiquidityPools();
-    }
+    //}
   }, [account, isWanChain]);
 
   useEffect(() => {
