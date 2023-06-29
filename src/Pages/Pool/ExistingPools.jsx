@@ -18,7 +18,7 @@ const ExistingPools = ({
         
       >
         <h5 className="uniq">
-          {data?.token0?.symbol}/{data?.token1?.symbol}
+          <img className="icon" src={`http://assets.rexdex.finance/tokens/${data?.token0?.address?.toLowerCase()}.png`}/>{data?.token0?.symbol} / <img  className="icon" src={`http://assets.rexdex.finance/tokens/${data?.token1?.address?.toLowerCase()}.png`}/>{data?.token1?.symbol}
         </h5>
 
         <h5>

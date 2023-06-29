@@ -80,7 +80,10 @@ export default function Crypto(props) {
           
         >
           <h5 style={{ display: "flex", alignItems: "center" }}>
-            {props?.symbol0} / {props?.symbol1}{" "}
+            {
+              console.log('props', props)
+            }
+          <img className="icon" src={`http://assets.rexdex.finance/tokens/${props?.address0?.toLowerCase()}.png`}/>{props?.symbol0} / <img className="icon" src={`http://assets.rexdex.finance/tokens/${props?.address1?.toLowerCase()}.png`}/>{props?.symbol1}{" "}
             <span className="badge">{props?.Multiplier}x</span>
           </h5>
         </div>

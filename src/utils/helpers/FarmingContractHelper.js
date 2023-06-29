@@ -115,8 +115,8 @@ export const getAllPools = async (account) => {
 
 			const [token0, token1] = [new web3_2.eth.Contract(ERC20Abi, token0Address), new web3_2.eth.Contract(ERC20Abi, token1Address)];
 			const [token0Symbol, token1Symbol] = await Promise.all([token0.methods.symbol().call(), token1.methods.symbol().call()]);
-
-			return { poolId: i, ...poolInfo, token0Symbol, token1Symbol };
+			
+			return { poolId: i, ...poolInfo, token0Symbol, token1Symbol, token0Address, token1Address };
 		});
 
 		const poolDataArray = (await Promise.allSettled(poolDataPromises)).filter((p) => p.status === "fulfilled").map((p) => p.value);
@@ -161,6 +161,8 @@ export const getAllPools = async (account) => {
 				rewardPerSecond,
 				symbol0: poolData.token0Symbol,
 				symbol1: poolData.token1Symbol,
+				address0: poolData.token0Address,
+				address1: poolData.token1Address,
 			};
 		});
 
