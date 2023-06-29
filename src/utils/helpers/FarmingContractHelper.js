@@ -102,12 +102,13 @@ export const getAllPools = async (account) => {
 	try {
 		const contract = initContractInstance();
 		const rewardPerSecond = await contract.methods.rewardPerSecond().call({ from: account });
+		const totalAllocPoint = await contract.methods.totalAllocPoint().call({ from: account });
 
 		const poolCount = await contract.methods.poolLength().call({ from: account });
 
 		const poolDataPromises = Array.from({ length: poolCount }, async (_, i) => {
 			const poolInfo = await contract.methods.poolInfo(i).call({ from: account });
-
+		
 			const pair = new web3_2.eth.Contract(PairV2Abi, poolInfo[0]);
 
 			const [token0Address, token1Address] = await Promise.all([pair.methods.token0().call(), pair.methods.token1().call()]);
@@ -149,6 +150,7 @@ export const getAllPools = async (account) => {
 				poolId: poolData.poolId,
 				accRewardPerShare: poolData.accRewardPerShare,
 				allocPoint: poolData.allocPoint,
+				totalAllocPoint: totalAllocPoint,
 				Multiplier: poolData.allocPoint / 100,
 				lastRewardTimestamp: poolData.lastRewardTimestamp,
 				lpToken: poolData.lpToken,

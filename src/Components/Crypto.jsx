@@ -7,7 +7,7 @@ import useMetaMask from "../utils/useMetaMask";
 export default function Crypto(props) {
   const navigate = useNavigate();
   const { account, connectWallet } = useMetaMask();
-
+  const YEARLY_RATE = 128;
   const getBoostPercent = (boosting, showPercent = true) => {
     if (boosting > 0) {
       boosting = boosting / 1e12;
@@ -43,7 +43,10 @@ export default function Crypto(props) {
     ).div(BigNumber(convertWeiToEther(props?.totalSupply, props?.decimals)));
     let sharePerSec = BigNumber(
       convertWeiToEther(props?.poolRate?.toString(), props?.decimals, false)
-    ).multipliedBy(BigNumber(props?.Multiplier));
+    ).multipliedBy(BigNumber(props?.allocPoint).div(BigNumber(props?.totalAllocPoint))).multipliedBy(YEARLY_RATE);
+
+
+    console.log('sharePerSec',sharePerSec.toString())
 
     let boostShareAmountPerSec = sharePerSec.multipliedBy(
       BigNumber(getBoostPercent(props?.userBoosting, false)).div(100)
@@ -69,11 +72,12 @@ export default function Crypto(props) {
       transition={{ duration: 0.2 }}
       exit={{ opacity: 0, y: 20 }}
       className="crypto"
+      style={props?.userStaked > 0 ? { border: '5px dashed #04f9f4' } : {}}
     >
-      <div className="crypto__row">
+      <div className="crypto__row" >
         <div
           className="crypto__name"
-          style={props?.userStaked <= 0 ? { opacity: 0.4 } : {}}
+          
         >
           <h5 style={{ display: "flex", alignItems: "center" }}>
             {props?.symbol0} / {props?.symbol1}{" "}
@@ -102,7 +106,7 @@ export default function Crypto(props) {
       </div>
       <div
         className="crypto__row"
-        style={props?.userStaked <= 0 ? { opacity: 0.4 } : {}}
+       
       >
         <p className="uniq">Total deposited</p>
         <div className="crypto__more">
@@ -116,13 +120,12 @@ export default function Crypto(props) {
       </div>
       <div
         className="crypto__row"
-        style={props?.userStaked <= 0 ? { opacity: 0.4 } : {}}
+        
       >
         <p className="uniq">Pool Rate</p>
         <p>{`${Number(
           convertWeiToEther(props?.poolRate?.toString(), props?.decimals) *
-            props?.Multiplier *
-            86400
+            86400 * (Number(props?.allocPoint) / Number(props?.totalAllocPoint)) * YEARLY_RATE
         ).toLocaleString()} REX / Days `}</p>
       </div>
 

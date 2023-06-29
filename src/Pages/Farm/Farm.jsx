@@ -60,7 +60,7 @@ export default function Farm() {
             transition={{ duration: 0.4 }}
             exit={{ opacity: 0, x: -40 }}
           >
-            Farm
+            Farming
           </motion.h2>
           <div className="crypto">
             <h5 className="placeholder"></h5>
@@ -111,7 +111,7 @@ export default function Farm() {
           exit={{ opacity: 0, y: 20 }}
           className="farm"
         >
-          <h2>Farm</h2>
+          <h2>Farming</h2>
           <div className="crypto">
             <h5 className="uniq">Rexdex liquidity mining</h5>
             <p>Deposit your Liquidity Provider tokens to receive REX.</p>

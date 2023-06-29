@@ -12,10 +12,10 @@ const ExistingPools = ({
 
   //)
   return (
-    <div className="crypto poolList">
+    <div className="crypto poolList" style={data?.userLiquidity > 0 ? { border: '5px dashed #04f9f4' } : {}}>
       <div
         className="box "
-        style={data?.userLiquidity <= 0 ? { opacity: 0.4 } : {}}
+        
       >
         <h5 className="uniq">
           {data?.token0?.symbol}/{data?.token1?.symbol}
