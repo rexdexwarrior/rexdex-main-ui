@@ -10,6 +10,7 @@ const Home = (props) => {
   const [rexStaked, setRexStaked] = useState(0);
   const [wanPrice, setWanPrice] = useState(0);
   const [rexPrice, setRexPrice] = useState(0);
+  const [rexLiq, setRexLiq] = useState(0);
 
 
   function convertToInternationalCurrencySystem(labelValue, dollar = false) {
@@ -29,6 +30,31 @@ const Home = (props) => {
 
           : Math.abs(Number(labelValue));
 
+  }
+
+  const getREXLiq = async () => {
+    const query = `
+    query getLiq{
+      tokens (where: {id: "0x01a2947d9e6f58572028fa9fc6a2511646345841"})
+        {
+          id
+          name,
+          totalLiquidity
+        }
+      }
+    `;
+
+    const response = await fetch('https://thegraph.one/subgraphs/name/rexdex/rexdex-subgraph', {
+      headers: {
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify({ query: query })
+    });
+    const data = await response.json();
+    console.log('REX Liquidity on DEX', data.data.tokens[0].totalLiquidity);
+    setRexLiq(Number(data.data.tokens[0].totalLiquidity));
+    
   }
 
   const getREXInfo = async () => {
@@ -102,6 +128,7 @@ query getPair{
 
   useEffect(() => {
     getREXInfo();
+    getREXLiq();
     getWANPrice();
     getREXPrice();
   }, []);
@@ -120,14 +147,14 @@ query getPair{
             <img src="/favicon.png" />
             <div>
               <span>Staked REX</span>
-              <span>{convertToInternationalCurrencySystem(rexStaked)}</span>
+              <span>{convertToInternationalCurrencySystem(Number(rexLiq)+Number(rexStaked))}</span>
             </div>
           </div>
           <div className="home-info-item grey">
             <img src="/images/dollar.svg" />
             <div>
               <span>TVL</span>
-              <span>{convertToInternationalCurrencySystem(rexStaked*wanPrice*rexPrice, true)}</span>
+              <span>{convertToInternationalCurrencySystem((Number(rexLiq)+Number(rexStaked))*wanPrice*rexPrice, true)}</span>
             </div>
           </div>
         </div>

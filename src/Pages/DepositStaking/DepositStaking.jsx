@@ -215,7 +215,7 @@ export default function DepositStaking() {
                   }
                 >
                   Balance: {convertWeiToEther(balance, lpToken.decimals, false)}{" "}
-                  REX
+                  REX [<a style={{color:'#04f9f4'}}>MAX</a>]
                 </p>
               </div>
             </div>
@@ -267,7 +267,7 @@ export default function DepositStaking() {
                   }
                 >
                   Balance:{" "}
-                  {convertWeiToEther(userStaked, lpToken.decimals, false)} REX
+                  {convertWeiToEther(userStaked, lpToken.decimals, false)} REX [<a style={{color:'#04f9f4'}}>MAX</a>]
                 </p>
               </div>
             )}

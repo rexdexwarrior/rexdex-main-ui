@@ -325,7 +325,7 @@ export default function DepositFarming() {
                   value={liquidityAmount}
                   onChange={(e) => setLiquidityAmount(e.target.value)}
                 />
-                <span>$RexLp</span>
+                <span>RexLP</span>
                 <p
                   style={{
                     display: "flex",
@@ -339,7 +339,7 @@ export default function DepositFarming() {
                     )
                   }
                 >
-                  Balance: {convertWeiToEther(balance, decimals, false)} RexLP
+                  Balance: {convertWeiToEther(balance, decimals, false)} RexLP [<a style={{color:'#04f9f4'}}>MAX</a>]
                 </p>
               </div>
             </div>
@@ -453,7 +453,7 @@ export default function DepositFarming() {
                   }
                 >
                   Balance: {convertWeiToEther(userStaked, decimals, false)}{" "}
-                  RexLP
+                  RexLP [<a style={{color:'#04f9f4'}}>MAX</a>]
                 </p>
               </div>
             )}
