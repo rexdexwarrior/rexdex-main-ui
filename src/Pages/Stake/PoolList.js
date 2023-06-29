@@ -94,8 +94,7 @@ export default function PoolList(props) {
         <p className="uniq">Pool Rate</p>
         <div className="crypto__more">
           <p>{`${Number(
-            convertWeiToEther(props?.rewardPerSecond?.toString(), props?.rewardToken?.decimals) *
-            86400
+            convertWeiToEther(props?.rewardPerSecond?.toString(), props?.rewardToken?.decimals) * 86400
           ).toLocaleString()} ${props?.rewardToken?.symbol} / Days`}</p>
         </div>
       </div>
