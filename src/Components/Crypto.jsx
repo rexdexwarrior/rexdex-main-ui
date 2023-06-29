@@ -72,7 +72,7 @@ export default function Crypto(props) {
       transition={{ duration: 0.2 }}
       exit={{ opacity: 0, y: 20 }}
       className="crypto"
-      style={props?.userStaked > 0 ? { border: '5px dashed #04f9f4' } : {}}
+      style={props?.userStaked > 0 ? { border: '3px dashed #04f9f4' } : {}}
     >
       <div className="crypto__row" >
         <div

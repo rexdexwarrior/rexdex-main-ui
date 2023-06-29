@@ -12,7 +12,7 @@ const ExistingPools = ({
 
   //)
   return (
-    <div className="crypto poolList" style={data?.userLiquidity > 0 ? { border: '5px dashed #04f9f4' } : {}}>
+    <div className="crypto poolList" style={data?.userLiquidity > 0 ? { border: '3px dashed #04f9f4' } : {}}>
       <div
         className="box "
         

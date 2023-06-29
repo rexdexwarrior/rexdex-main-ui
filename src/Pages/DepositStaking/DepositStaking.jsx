@@ -200,7 +200,7 @@ export default function DepositStaking() {
                   value={stakingAmount}
                   onChange={(e) => setStakingAmount(e.target.value)}
                 />
-                <span>${lpToken.symbol}</span>
+                <span>{lpToken.symbol}</span>
                 <p
                   style={{
                     display: "flex",

@@ -216,7 +216,7 @@ export default function AirDrop() {
                 }}
               >
                 <h5 className="uniq">Pending Rewards</h5>
-                <p>{convertWeiToEther(pendingReward, 18)}</p>
+                <p>{convertWeiToEther(pendingReward, 18)} REX</p>
               </div>
             </div>
           </div>
