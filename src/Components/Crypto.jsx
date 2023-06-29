@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { convertWeiToEther } from "../utils/convertToBN";
@@ -7,6 +7,7 @@ import useMetaMask from "../utils/useMetaMask";
 export default function Crypto(props) {
   const navigate = useNavigate();
   const { account, connectWallet } = useMetaMask();
+  const [lpPrice, setLpPrice] = useState(0);
   const YEARLY_RATE = 128;
   const getBoostPercent = (boosting, showPercent = true) => {
     if (boosting > 0) {
@@ -19,7 +20,7 @@ export default function Crypto(props) {
     return boosting;
   };
 
-  console.log("Boosting", props?.userBoosting);
+  //console.log("Boosting", props);
 
   const getUserSharePercent = (props) => {
     if (props?.userStaked === "0") return 0;
@@ -43,10 +44,13 @@ export default function Crypto(props) {
     ).div(BigNumber(convertWeiToEther(props?.totalSupply, props?.decimals)));
     let sharePerSec = BigNumber(
       convertWeiToEther(props?.poolRate?.toString(), props?.decimals, false)
-    ).multipliedBy(BigNumber(props?.allocPoint).div(BigNumber(props?.totalAllocPoint))).multipliedBy(YEARLY_RATE);
+    )
+      .multipliedBy(
+        BigNumber(props?.allocPoint).div(BigNumber(props?.totalAllocPoint))
+      )
+      .multipliedBy(YEARLY_RATE);
 
-
-    console.log('sharePerSec',sharePerSec.toString())
+    //console.log('sharePerSec',sharePerSec.toString())
 
     let boostShareAmountPerSec = sharePerSec.multipliedBy(
       BigNumber(getBoostPercent(props?.userBoosting, false)).div(100)
@@ -65,6 +69,43 @@ export default function Crypto(props) {
     return Number(myRealSharePerDay.toString()).toFixed(4);
   };
 
+  const getLPPrice = (props) => {
+    let PoolLP = props?.LPPriceList?.filter((item) => {
+      return item?.id === props?.lpToken.toLowerCase();
+    });
+    return PoolLP[0].reserveUSD / PoolLP[0].totalSupply;
+  };
+
+  const getAPR = (props) => {
+    //console.log('PoolLP',PoolLP[0])
+
+    // REX PER YEAR //
+    let rewardPerYear =
+      convertWeiToEther(props?.poolRate?.toString(), props?.decimals) *
+      (86400 * 365) *
+      (Number(props?.allocPoint) / Number(props?.totalAllocPoint)) *
+      YEARLY_RATE;
+
+    console.log(
+      "rewardPerYear",
+      rewardPerYear,
+      Number(convertWeiToEther(props?.totalSupply, props?.decimals))
+    );
+
+    // LP PRICE //
+    let lpPrice = getLPPrice(props);
+    //setLpPrice(lpPrice);
+
+    // APR //
+    let apr =
+      ((rewardPerYear * props?.rexPrice) /
+        (Number(convertWeiToEther(props?.totalSupply, props?.decimals)) *
+          lpPrice)) *
+      100;
+
+    return apr.toFixed(2) + "%";
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -72,19 +113,21 @@ export default function Crypto(props) {
       transition={{ duration: 0.2 }}
       exit={{ opacity: 0, y: 20 }}
       className="crypto"
-      style={props?.userStaked > 0 ? { border: '3px dashed #04f9f4' } : {}}
+      style={props?.userStaked > 0 ? { border: "3px dashed #04f9f4" } : {}}
     >
-      <div className="crypto__row" >
-        <div
-          className="crypto__name"
-          
-        >
+      <div className="crypto__row">
+        <div className="crypto__name">
           <h5 style={{ display: "flex", alignItems: "center" }}>
-            {
-              console.log('props', props)
-            }
-          <img className="icon" src={`http://assets.rexdex.finance/tokens/${props?.address0?.toLowerCase()}.png`}/>{props?.symbol0} / <img className="icon" src={`http://assets.rexdex.finance/tokens/${props?.address1?.toLowerCase()}.png`}/>{props?.symbol1}{" "}
-            <span className="badge">{props?.Multiplier}x</span>
+            <img
+              className="icon"
+              src={`http://assets.rexdex.finance/tokens/${props?.address0?.toLowerCase()}.png`}
+            />
+            {props?.symbol0} /{" "}
+            <img
+              className="icon"
+              src={`http://assets.rexdex.finance/tokens/${props?.address1?.toLowerCase()}.png`}
+            />
+            {props?.symbol1} <span className="badge">{props?.Multiplier}x</span>
           </h5>
         </div>
         {account ? (
@@ -98,38 +141,53 @@ export default function Crypto(props) {
           </>
         ) : (
           <>
-           <button
-              onClick={() => connectWallet()}
-              className="button depos"
-            >
+            <button onClick={() => connectWallet()} className="button depos">
               Connect Wallet
             </button>
           </>
         )}
       </div>
-      <div
-        className="crypto__row"
-       
-      >
-        <p className="uniq">Total deposited</p>
+      <div className="crypto__row">
+        <p className="uniq">Total deposited in RexLP</p>
         <div className="crypto__more">
           <p>
             {Number(
               convertWeiToEther(props?.totalSupply?.toString(), props?.decimals)
-            ).toLocaleString()}
+            ).toLocaleString()}{" "}
+            {props?.symbol} 
           </p>
-          <p>{props?.symbol}</p>
         </div>
       </div>
-      <div
-        className="crypto__row"
-        
-      >
+
+      <div className="crypto__row">
+        <p className="uniq">Total deposited in USD</p>
+        <div className="crypto__more">
+          <p>
+            
+            ${(
+              getLPPrice(props) *
+              convertWeiToEther(props?.totalSupply?.toString(), props?.decimals)
+            )?.toLocaleString()}
+            
+          </p>
+        </div>
+      </div>
+
+      <div className="crypto__row">
         <p className="uniq">Pool Rate</p>
         <p>{`${Number(
           convertWeiToEther(props?.poolRate?.toString(), props?.decimals) *
-            86400 * (Number(props?.allocPoint) / Number(props?.totalAllocPoint)) * YEARLY_RATE
+            86400 *
+            (Number(props?.allocPoint) / Number(props?.totalAllocPoint)) *
+            YEARLY_RATE
         ).toLocaleString()} REX / Days `}</p>
+      </div>
+
+      <div className="crypto__row">
+        <p className="uniq" style={{ fontWeight: "bold", fontSize: 18 }}>
+          Average APR
+        </p>
+        <p style={{ fontWeight: "bold", fontSize: 18 }}>{getAPR(props)}</p>
       </div>
 
       {props.userStaked > 0 && (

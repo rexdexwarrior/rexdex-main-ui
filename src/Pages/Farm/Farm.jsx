@@ -6,16 +6,19 @@ import { search } from "../../Base/SVG";
 import { getAllPools } from "../../utils/helpers/FarmingContractHelper";
 import useMetaMask from "../../utils/useMetaMask";
 
-export default function Farm() {
+export default function Farm(props) {
   const { account,isWanChain } = useMetaMask();
 
   const [staked, setStaked] = useState(false);
   const [active, setActive] = useState(false);
   const [poolList, setPoolList] = useState([]);
+  const [LPPriceList, setLPPriceList] = useState([]);
 
   useEffect(() => {
       fetchAllPools(account);
-  }, [account]);
+      getAllLPPrice();
+      //console.log('rexPrice',props?.rexPrice)
+  }, [account, props?.rexPrice]);
 
   useEffect(() => {
  if(isWanChain){   const interval = setInterval(async () => {
@@ -35,6 +38,32 @@ export default function Farm() {
       setPoolList(poolList);
     //}
   };
+
+  const getAllLPPrice = async() => {
+    const query = `
+    query getLPPrice{
+      pairs
+      {
+        id,
+        reserveUSD,
+        totalSupply
+      }
+    }
+    `;
+
+    const response = await fetch('https://thegraph.one/subgraphs/name/rexdex/rexdex-subgraph', {
+      headers: {
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify({ query: query })
+    });
+    const data = await response.json();
+    console.log('LP Price List', data.data.pairs);
+    setLPPriceList(data.data.pairs)
+  }
+
+
   const stakedChange = () => {
     setStaked(!staked);
   };
@@ -186,10 +215,10 @@ export default function Farm() {
             </div>
           </div> */}
           {
-            console.log('poolList',poolList)
+            //console.log('poolList',poolList)
           }
           {poolList && poolList?.length ? poolList?.map((item, index) => {
-            return <Crypto {...item} key={index} />;
+            return <Crypto {...item} key={index} LPPriceList={LPPriceList} rexPrice={props?.rexPrice}/>;
           }):null}
         </motion.div>
       )}

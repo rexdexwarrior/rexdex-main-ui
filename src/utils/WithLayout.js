@@ -4,6 +4,7 @@ import { chainId } from "../config";
 
 const WithLayout = (WrappedComponent) => {
 	return function Layout(props) {
+		
 		useEffect(() => {
 			if (window.ethereum) {
 				const handleChainChanged = (chainIdFromMeta) => {
@@ -32,7 +33,7 @@ const WithLayout = (WrappedComponent) => {
 			}
 		}, []);
 
-		return <WrappedComponent {...props} />;
+		return <WrappedComponent {...props}/>;
 	};
 };
 

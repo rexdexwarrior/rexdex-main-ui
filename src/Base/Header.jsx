@@ -6,7 +6,7 @@ import { getTokenBalances } from "../utils/helpers/SwapContractHelper";
 import { rexToken } from "../config";
 import { convertWeiToEther } from "../utils/convertToBN";
 import { NavLink } from "react-router-dom";
-export default function Header({ menu, setMenu }) {
+export default function Header({ menu, setMenu, rexPrice }) {
   const { isConnected, account, connectWallet, isWanChain } = useMetaMask();
   const [rexBalance, setRexBalance] = useState("0.00");
 
@@ -42,7 +42,7 @@ export default function Header({ menu, setMenu }) {
             src={process.env.PUBLIC_URL + "/images/icons/rexHead.png"}
             alt="rexHead"
           />
-          REX {Number(convertWeiToEther(rexBalance, 18)).toLocaleString()}
+          REX {Number(convertWeiToEther(rexBalance, 18)).toLocaleString()} | ${rexPrice?.toFixed(5)}
         </button>
 
         {!isConnected ? (

@@ -19,9 +19,13 @@ import DepositFarming from "./Pages/DepositFarming";
 import DepositStaking from "./Pages/DepositStaking";
 //import { toast } from "react-toastify";
 import WithLayout from "./utils/WithLayout";
+import { rexToken } from "./config";
+
+
 
 export default function App() {
 	const [menu, setMenu] = useState(false);
+	const [rexPrice, setRexPrice] = useState(0);
 	const location = useLocation();
 	const closeFunc = (e) => {
 		if (e.target === e.currentTarget) setMenu(false);
@@ -35,15 +39,42 @@ export default function App() {
 		}
 	}, [menu]);
 
-	
+
 
 	useEffect(() => {
+		getRexPrice();
 		const urlParams = new URLSearchParams(window.location.search);
 		if (urlParams.has("referrer")) {
 			const referrerAddress = atob(urlParams.get("referrer"));
 			localStorage.setItem("referrerAddress", referrerAddress);
 		}
 	}, []);
+
+	const getRexPrice = async () => {
+		// Get REX PRICE //
+		const query = `query getREXPrice{
+				
+					pairs(where: {id:"0x446bcb18ef05816baf94cdd0ab29461766a2019c"})
+					{
+					token1Price
+					}
+				
+			}
+			`;
+
+		const response = await fetch('https://thegraph.one/subgraphs/name/rexdex/rexdex-subgraph', {
+			headers: {
+				'content-type': 'application/json'
+			},
+			method: 'POST',
+			body: JSON.stringify({ query: query })
+		});
+		const data = await response.json();
+		console.log('Rex Price', data.data.pairs[0].token1Price);
+		setRexPrice(Number(data.data.pairs[0].token1Price) ?? 0);
+
+	}
+	
 
 	useEffect(() => {
 		setMenu(false);
@@ -70,7 +101,7 @@ export default function App() {
 
 				<Route exact path="airdrop" element={<AirDropComponent />} />
 				{/* <Route exact path="bridge" element={<BridgeComponent />} /> */}
-				<Route exact path="farming" element={<FarmComponent />} />
+				<Route exact path="farming" element={<FarmComponent rexPrice={rexPrice}/>} />
 				<Route exact path="referral" element={<ReferralComponent />} />
 				<Route exact path="staking" element={<StakeComponent />} />
 				<Route exact path="deposit-farming" element={<DepositFarmingComponent />} />
@@ -78,11 +109,11 @@ export default function App() {
 				<Route exact path="deposit-staking" element={<DepositStakingComponent />} />
 			</Routes>
 		)
-	},[]);
+	}, [rexPrice]);
 
 	return (
 		<div className="wrapper">
-			<Header setMenu={setMenu} menu={menu} />
+			<Header setMenu={setMenu} menu={menu} rexPrice={rexPrice}/>
 			<Sidebar menu={menu} closeFunc={closeFunc} />
 			<main className="main">
 				{RouterContent}
