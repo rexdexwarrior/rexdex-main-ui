@@ -278,7 +278,7 @@ export default function DepositFarming() {
                 <div className="crypto smallBox">
                   {userStaked > 0 ? (
                     <>
-                      <h5>Your Deposits</h5>
+                      <h5>Your Deposit</h5>
                       <p>{`${convertWeiToEther(
                         userStaked,
                         decimals,

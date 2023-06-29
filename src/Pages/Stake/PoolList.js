@@ -118,7 +118,7 @@ export default function PoolList(props) {
       {props?.userStaked > 0 && <>
         <hr />
         <div className="crypto__row">
-          <p className="uniq">Your deposited</p>
+          <p className="uniq">Your deposit</p>
           <div className="crypto__more">
             <p>
               {Number(

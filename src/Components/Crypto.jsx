@@ -200,7 +200,7 @@ export default function Crypto(props) {
           </div>
 
           <div className="crypto__row">
-            <p className="uniq">Your deposited</p>
+            <p className="uniq">Your deposit</p>
             <div className="crypto__more">
               <p>
                 {Number(
