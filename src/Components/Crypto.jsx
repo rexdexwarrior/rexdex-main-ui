@@ -26,12 +26,12 @@ export default function Crypto(props) {
     if (props?.userStaked === "0") return 0;
 
     let sharePercent = BigNumber(
-      convertWeiToEther(props?.userStaked, props?.decimals)
+      convertWeiToEther(props?.userStaked, props?.decimals,false)
     ).div(
       BigNumber(
-        convertWeiToEther(props?.totalSupply, props?.decimals)
-      ).multipliedBy(100)
-    );
+        convertWeiToEther(props?.totalSupply, props?.decimals,false)
+      )
+    ).multipliedBy(100);
 
     return Number(sharePercent.toString()).toFixed(2);
   };
@@ -196,7 +196,7 @@ export default function Crypto(props) {
 
           <div className="crypto__row">
             <p className="uniq">User Boosting Rate</p>
-            <p>{`${getBoostPercent(props?.userBoosting)}`}</p>
+            <p>+{`${getBoostPercent(props?.userBoosting)}`}</p>
           </div>
 
           <div className="crypto__row">
