@@ -115,7 +115,7 @@ export default function Crypto(props) {
       className="crypto"
       style={props?.userStaked > 0 ? { border: "3px dashed #04f9f4" } : {}}
     >
-      <div className="crypto__row">
+      <div className="crypto__row responsive_row">
         <div className="crypto__name">
           <h5 style={{ display: "flex", alignItems: "center" }}>
             <img
@@ -147,7 +147,7 @@ export default function Crypto(props) {
           </>
         )}
       </div>
-      <div className="crypto__row">
+      <div className="crypto__row responsive_row">
         <p className="uniq">Total deposited in RexLP</p>
         <div className="crypto__more">
           <p>
@@ -159,7 +159,7 @@ export default function Crypto(props) {
         </div>
       </div>
 
-      <div className="crypto__row">
+      <div className="crypto__row responsive_row">
         <p className="uniq">Total deposited in USD</p>
         <div className="crypto__more">
           <p>
@@ -173,7 +173,7 @@ export default function Crypto(props) {
         </div>
       </div>
 
-      <div className="crypto__row">
+      <div className="crypto__row responsive_row">
         <p className="uniq">Pool Rate</p>
         <p>{`${Number(
           convertWeiToEther(props?.poolRate?.toString(), props?.decimals) *
@@ -183,7 +183,7 @@ export default function Crypto(props) {
         ).toLocaleString()} REX / Days `}</p>
       </div>
 
-      <div className="crypto__row">
+      <div className="crypto__row responsive_row">
         <p className="uniq" style={{ fontWeight: "bold", fontSize: 18 }}>
           Average APR
         </p>

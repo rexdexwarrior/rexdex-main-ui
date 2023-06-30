@@ -778,7 +778,7 @@ p.big {
 .crypto__more p.uniq {
   color: #04f9f4;
   display: flex;
-    align-items: center;
+  align-items: center;
 }
 .crypto__more p:first-child {
   margin-left: 0;
@@ -803,9 +803,9 @@ p.big {
 }
 .crypto__name img {
   height: 24px;
-  margin-right:5px;
-  margin-left:5px;
-  border:2px solid white;
+  margin-right: 5px;
+  margin-left: 5px;
+  border: 2px solid white;
   border-radius: 50%;
 }
 .crypto .button.placeholder {
@@ -3202,9 +3202,9 @@ p.big {
 .uniq .icon {
   width: 24px;
   height: 24px;
-  margin-right:5px;
-  margin-left:5px;
-  border:2px solid white;
+  margin-right: 5px;
+  margin-left: 5px;
+  border: 2px solid white;
   border-radius: 50%;
 }
 
@@ -3799,7 +3799,7 @@ p.big {
   }
   .crypto p {
     font-size: 12px;
-    line-height: 16px;
+    /* line-height: 16px; */
   }
   .radio {
     margin-bottom: 12px;
@@ -3872,4 +3872,29 @@ hr {
   margin-top: 10px;
   margin-bottom: 10px;
   background: rgba(255, 255, 255, 0.2);
+}
+
+.responsive_row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+@media (max-width: 426px) {
+  .responsive_row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .responsive_row.h5 {
+    font-size: 14px;
+  }
+  .responsive_row p {
+    margin-bottom: 0;
+  }
+  .responsive_row button {
+    margin-top: 10px;
+  }
 }

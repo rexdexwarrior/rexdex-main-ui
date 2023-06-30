@@ -9,40 +9,66 @@ const ExistingPools = ({
   setSelectedLiquidity,
   addInExistingPair,
 }) => {
-
   //)
   return (
-    <div className="crypto poolList" style={data?.userLiquidity > 0 ? { border: '3px dashed #04f9f4' } : {}}>
-      <div
-        className="box "
-        
-      >
-        <h5 className="uniq">
-          <img className="icon" src={`http://assets.rexdex.finance/tokens/${data?.token0?.address?.toLowerCase()}.png`}/>{data?.token0?.symbol} / <img  className="icon" src={`http://assets.rexdex.finance/tokens/${data?.token1?.address?.toLowerCase()}.png`}/>{data?.token1?.symbol}
-        </h5>
+    <div
+      className="crypto poolList"
+      style={data?.userLiquidity > 0 ? { border: "3px dashed #04f9f4" } : {}}
+    >
+      <div className="box ">
+        <div className="responsive_row">
+          <h5 className="uniq ">
+            <img
+              className="icon"
+              src={`http://assets.rexdex.finance/tokens/${data?.token0?.address?.toLowerCase()}.png`}
+            />
+            {data?.token0?.symbol} /{" "}
+            <img
+              className="icon"
+              src={`http://assets.rexdex.finance/tokens/${data?.token1?.address?.toLowerCase()}.png`}
+            />
+            {data?.token1?.symbol}
+          </h5>
 
-        <h5>
-          {Number(convertWeiToEther(data?.reserves?.reserve0, data?.token0?.decimals)) > 0
-            ? Number(
-                convertWeiToEther(data?.reserves?.reserve0, data?.token0?.decimals)
-              ).toLocaleString()
-            : "-"}
-          /
-          {Number(convertWeiToEther(data?.reserves?.reserve1, data?.token1?.decimals)) > 0
-            ? Number(
-                convertWeiToEther(data?.reserves?.reserve1, data?.token1?.decimals)
-              ).toLocaleString()
-            : "-"}
-        </h5>
+          <h5>
+            {Number(
+              convertWeiToEther(
+                data?.reserves?.reserve0,
+                data?.token0?.decimals
+              )
+            ) > 0
+              ? Number(
+                  convertWeiToEther(
+                    data?.reserves?.reserve0,
+                    data?.token0?.decimals
+                  )
+                ).toLocaleString()
+              : "-"}
+            {" "}/{" "} 
+            {Number(
+              convertWeiToEther(
+                data?.reserves?.reserve1,
+                data?.token1?.decimals
+              )
+            ) > 0
+              ? Number(
+                  convertWeiToEther(
+                    data?.reserves?.reserve1,
+                    data?.token1?.decimals
+                  )
+                ).toLocaleString()
+              : "-"}
+          </h5>
+        </div>
       </div>
 
       {data?.userLiquidity > 0 && (
         <>
-          <div className="box">
+          <div className="box responsive_row">
             <p className="uniq">Your Total Pool Token</p>
-            <p>{(data?.userLiquidity / 10 ** 18)}</p>
+            <p>{data?.userLiquidity / 10 ** 18}</p>
           </div>
-          <div className="box">
+          <div className="box responsive_row">
             <p className="uniq">Your Pooled {data?.token0?.symbol}</p>
             <p>
               {isNaN(data?.token0?.pooledShare)
@@ -50,7 +76,7 @@ const ExistingPools = ({
                 : data?.token0?.pooledShare}
             </p>
           </div>
-          <div className="box">
+          <div className="box responsive_row">
             <p className="uniq">Your Pooled {data?.token1?.symbol}</p>
             <p>
               {isNaN(data?.token1?.pooledShare)
@@ -58,14 +84,9 @@ const ExistingPools = ({
                 : data?.token1?.pooledShare}
             </p>
           </div>
-          <div className="box">
+          <div className="box responsive_row">
             <p className="uniq">Your pool share</p>
-            <p>
-              {isNaN(data?.userShare)
-                ? "0"
-                : data?.userShare}
-              %
-            </p>
+            <p>{isNaN(data?.userShare) ? "0" : data?.userShare}%</p>
           </div>
         </>
       )}
