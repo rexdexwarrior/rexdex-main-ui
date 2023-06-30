@@ -40,8 +40,8 @@ export default function Crypto(props) {
     if (props?.userStaked === "0") return 0;
 
     let shareRatio = BigNumber(
-      convertWeiToEther(props?.userStaked, props?.decimals)
-    ).div(BigNumber(convertWeiToEther(props?.totalSupply, props?.decimals)));
+      convertWeiToEther(props?.userStaked, props?.decimals, false)
+    ).div(BigNumber(convertWeiToEther(props?.totalSupply, props?.decimals, false)));
     let sharePerSec = BigNumber(
       convertWeiToEther(props?.poolRate?.toString(), props?.decimals, false)
     )
@@ -206,7 +206,8 @@ export default function Crypto(props) {
                 {Number(
                   convertWeiToEther(
                     props?.userStaked?.toString(),
-                    props?.decimals
+                    props?.decimals,
+                    false
                   )
                 ).toLocaleString()}{" "}
                 {props?.symbol} ({getUserSharePercent(props)}%)
