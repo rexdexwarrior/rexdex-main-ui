@@ -35,6 +35,9 @@ export default function Farm(props) {
   const fetchAllPools = async (account) => {
     //if (!!account) {
       const poolList = await getAllPools(account);
+      
+      setIsLoading(false);
+      //console.log('Pool List', poolList);
       setPoolList(poolList);
     //}
   };
@@ -59,7 +62,7 @@ export default function Farm(props) {
       body: JSON.stringify({ query: query })
     });
     const data = await response.json();
-    console.log('LP Price List', data.data.pairs);
+    //console.log('LP Price List', data.data.pairs);
     setLPPriceList(data.data.pairs)
   }
 
@@ -71,14 +74,14 @@ export default function Farm(props) {
     setActive(!active);
   };
   const [isLoading, setIsLoading] = useState(true);
-  const lazyDummy = () => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-  };
-  useEffect(() => {
-    lazyDummy();
-  }, []);
+  // const lazyDummy = () => {
+  //   setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, 3000);
+  // };
+  // useEffect(() => {
+  //   lazyDummy();
+  // }, []);
   return (
     <Layout>
       {isLoading ? (

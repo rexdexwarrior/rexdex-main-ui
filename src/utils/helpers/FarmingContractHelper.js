@@ -102,6 +102,7 @@ export const getAllPools = async (account) => {
 
 	try {
 		const contract = initContractInstance(web3_2);
+		const startTime = await contract.methods.startTime().call({ from: account });
 		const rewardPerSecond = await contract.methods.rewardPerSecond().call({ from: account });
 		const totalAllocPoint = await contract.methods.totalAllocPoint().call({ from: account });
 
@@ -160,6 +161,7 @@ export const getAllPools = async (account) => {
 				userStaked: account ? userStakedInfoArray[index].status === "fulfilled" ? userStakedInfoArray[index].value.amount : null : 0,
 				userBoosting: account ? userStakedInfoArray[index].status === "fulfilled" ? userStakedInfoArray[index].value.userBoosting : null : 0,
 				rewardPerSecond,
+				startTime,
 				symbol0: poolData.token0Symbol,
 				symbol1: poolData.token1Symbol,
 				address0: poolData.token0Address,

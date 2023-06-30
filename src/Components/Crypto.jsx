@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { convertWeiToEther } from "../utils/convertToBN";
@@ -8,7 +8,50 @@ export default function Crypto(props) {
   const navigate = useNavigate();
   const { account, connectWallet } = useMetaMask();
   const [lpPrice, setLpPrice] = useState(0);
-  const YEARLY_RATE = 128;
+  const YEAR = useMemo(() => {
+    let now = new Date().getTime() / 1000;
+    let year = Math.floor((now - props?.startTime) / (365 * 86400));
+    function ordinal_suffix_of(i) {
+      var j = i % 10,
+        k = i % 100;
+      if (j == 1 && k != 11) {
+        return i + "st";
+      }
+      if (j == 2 && k != 12) {
+        return i + "nd";
+      }
+      if (j == 3 && k != 13) {
+        return i + "rd";
+      }
+      return i + "th";
+    }
+    return ordinal_suffix_of(year + 1);
+  });
+  const YEARLY_RATE = useMemo(() => {
+    let now = new Date().getTime() / 1000;
+    let year = Math.floor((now - props?.startTime) / (365 * 86400));
+    //console.log('year', props?.startTime)
+    switch (year) {
+      case 0:
+        return 128;
+      case 1:
+        return 64;
+      case 2:
+        return 32;
+      case 3:
+        return 16;
+      case 4:
+        return 8;
+      case 5:
+        return 4;
+      case 6:
+        return 2;
+      case 7:
+        return 1;
+      default:
+        return 1;
+    }
+  });
   const getBoostPercent = (boosting, showPercent = true) => {
     if (boosting > 0) {
       boosting = boosting / 1e12;
@@ -88,11 +131,11 @@ export default function Crypto(props) {
       (Number(props?.allocPoint) / Number(props?.totalAllocPoint)) *
       YEARLY_RATE;
 
-    console.log(
-      "rewardPerYear",
-      rewardPerYear,
-      Number(convertWeiToEther(props?.totalSupply, props?.decimals, false))
-    );
+    // console.log(
+    //   "rewardPerYear",
+    //   rewardPerYear,
+    //   Number(convertWeiToEther(props?.totalSupply, props?.decimals, false))
+    // );
 
     // LP PRICE //
     let lpPrice = getLPPrice(props);
@@ -159,7 +202,7 @@ export default function Crypto(props) {
                 props?.decimals,
                 false
               )
-            ).toLocaleString('en-US', {maximumSignificantDigits: 6})}{" "}
+            ).toLocaleString("en-US", { maximumSignificantDigits: 6 })}{" "}
             {props?.symbol}
           </p>
         </div>
@@ -180,6 +223,11 @@ export default function Crypto(props) {
             )?.toLocaleString()}
           </p>
         </div>
+      </div>
+
+      <div className="crypto__row responsive_row">
+        <p className="uniq">{YEAR} Year based Multiplier</p>
+        <p>{YEARLY_RATE}x</p>
       </div>
 
       <div className="crypto__row responsive_row">
