@@ -49,7 +49,7 @@ export default function PoolList(props) {
       className="crypto"
       style={props?.userStaked > 0 ? { border: '3px dashed #04f9f4' } : {}}
     >
-      <div className="crypto__row">
+      <div className="crypto__row responsive_row">
         <div className="crypto__name">
           <h5 className="uniq">Stake {props?.lpToken?.name}</h5>
         </div>
@@ -75,14 +75,14 @@ export default function PoolList(props) {
 
       </div>
 
-      <div className="crypto__row">
+      <div className="crypto__row responsive_row">
         <p className="uniq">Reward Token</p>
         <div className="crypto__more">
           <p>{props?.rewardToken?.name}</p>
         </div>
       </div>
 
-      <div className="crypto__row">
+      <div className="crypto__row responsive_row">
         <p className="uniq">Total Pool Deposits</p>
         <div className="crypto__more">
           <p>{Number(convertWeiToEther(props?.currentSupply.toString(), props?.rewardToken?.decimals)).toLocaleString()}</p>
@@ -90,7 +90,7 @@ export default function PoolList(props) {
         </div>
       </div>
 
-      <div className="crypto__row">
+      <div className="crypto__row responsive_row">
         <p className="uniq">Pool Rate</p>
         <div className="crypto__more">
           <p>{`${Number(
@@ -99,14 +99,14 @@ export default function PoolList(props) {
         </div>
       </div>
 
-      <div className="crypto__row">
+      <div className="crypto__row responsive_row">
         <p className="uniq">Bonus Start</p>
         <div className="crypto__more">
           <p>{timestampToHumanReadable(props?.bonusStartTimestamp)}</p>
         </div>
       </div>
 
-      <div className="crypto__row">
+      <div className="crypto__row responsive_row">
         <p className="uniq">Bonus End</p>
         <div className="crypto__more">
           <p>{timestampToHumanReadable(props?.bonusEndTimestamp)}</p>
@@ -116,7 +116,7 @@ export default function PoolList(props) {
 
       {props?.userStaked > 0 && <>
         <hr />
-        <div className="crypto__row">
+        <div className="crypto__row responsive_row">
           <p className="uniq">Your deposit</p>
           <div className="crypto__more">
             <p>
@@ -129,7 +129,7 @@ export default function PoolList(props) {
             </p>
           </div>
         </div>
-        <div className="crypto__row">
+        <div className="crypto__row responsive_row">
           <p className="uniq">Estimated {props?.rewardToken?.symbol} reward</p>
           <div className="crypto__more">
             <p>{getUserRate(props)} {props?.rewardToken?.symbol} / Day</p>

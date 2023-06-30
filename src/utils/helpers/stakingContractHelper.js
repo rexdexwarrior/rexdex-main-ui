@@ -4,9 +4,9 @@ import { FarmingAddress, stakingAddress } from "../../config";
 
 const web3 = new Web3(window.ethereum);
 
-function initWeb3() {
+function initWeb3(myWeb3) {
   try {
-    const stakingContract = new web3.eth.Contract(StakingAbi, stakingAddress);
+    const stakingContract = new myWeb3.eth.Contract(StakingAbi, stakingAddress);
     return stakingContract;
   } catch (error) {
     console.log(error);
@@ -40,7 +40,7 @@ export async function getPools(account) {
   }
 
   try {
-    const contract = initWeb3();
+    const contract = initWeb3(web3_2);
 
     const poolCount = await contract.methods.poolLength().call();
     let poolData = [];
@@ -106,7 +106,7 @@ export async function getPools(account) {
 
 export const getPendingRewards = async (pid, account) => {
   try {
-    const contract = initWeb3();
+    const contract = initWeb3(web3);
 
     const pendingReward = await contract.methods
       .pendingReward(pid, account)
@@ -118,7 +118,7 @@ export const getPendingRewards = async (pid, account) => {
 };
 export async function deposit(poolId, amount, account) {
   try {
-    const contract = initWeb3();
+    const contract = initWeb3(web3);
 
     // Send transaction to deposit tokens
     await contract.methods
@@ -132,7 +132,7 @@ export async function deposit(poolId, amount, account) {
 }
 export async function withdraw(poolId, amount, account) {
   try {
-    const contract = initWeb3();
+    const contract = initWeb3(web3);
 
     await contract.methods
       .withdraw(poolId, amount)
