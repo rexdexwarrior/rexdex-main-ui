@@ -7,14 +7,15 @@ import { checkReferralQualification } from "./ReferalHelper";
 
 const web3 = new Web3(window.ethereum);
 
-export const initContractInstance = () => {
+export const initContractInstance = (myWeb3) => {
 	try {
-		const contractInstance = new web3.eth.Contract(FarmingAbi, FarmingAddress);
+		const contractInstance = new myWeb3.eth.Contract(FarmingAbi, FarmingAddress);
 		return contractInstance;
 	} catch (error) {
 		console.log(error);
 	}
 };
+
 
 export async function approveToken(lpTokenAddress, amount, account) {
 	try {
@@ -58,7 +59,7 @@ export async function deposit(poolId, amount, sas, zoo, account, _referer = empt
 			}
 		}
 
-		const contract = initContractInstance();
+		const contract = initContractInstance(web3);
 		await contract.methods.depositWithNft(poolId, amount, sas, zoo, ref).send({ from: account });
 	} catch (err) {
 		console.error("Error depositing tokens:", err);
@@ -68,7 +69,7 @@ export async function deposit(poolId, amount, sas, zoo, account, _referer = empt
 
 export async function withdraw(poolId, amount, account) {
 	try {
-		const contract = initContractInstance();
+		const contract = initContractInstance(web3);
 		await contract.methods.withdrawWithNft(poolId, amount).send({ from: account });
 	} catch (err) {
 		console.error("Error depositing tokens:", err);
@@ -76,8 +77,8 @@ export async function withdraw(poolId, amount, account) {
 	}
 }
 
-async function fetchTokenInfo(lpTokenAddress, poolContract) {
-	const lpTokenContract = new web3.eth.Contract(ERC20Abi, lpTokenAddress);
+async function fetchTokenInfo(myWeb3, lpTokenAddress, poolContract) {
+	const lpTokenContract = new myWeb3.eth.Contract(ERC20Abi, lpTokenAddress);
 
 	const name = await lpTokenContract.methods.name().call();
 	const symbol = await lpTokenContract.methods.symbol().call();
@@ -100,7 +101,7 @@ export const getAllPools = async (account) => {
 	}
 
 	try {
-		const contract = initContractInstance();
+		const contract = initContractInstance(web3_2);
 		const rewardPerSecond = await contract.methods.rewardPerSecond().call({ from: account });
 		const totalAllocPoint = await contract.methods.totalAllocPoint().call({ from: account });
 
@@ -122,7 +123,7 @@ export const getAllPools = async (account) => {
 		const poolDataArray = (await Promise.allSettled(poolDataPromises)).filter((p) => p.status === "fulfilled").map((p) => p.value);
 
 		const tokenDataPromises = poolDataArray.map((poolData) =>
-			fetchTokenInfo(poolData.lpToken, contract).catch((err) => {
+			fetchTokenInfo(web3_2, poolData.lpToken, contract).catch((err) => {
 				console.error("Error fetching token data:", err);
 			})
 		);
@@ -174,7 +175,7 @@ export const getAllPools = async (account) => {
 
 export const getPendingRewards = async (pid, account) => {
 	try {
-		const contract = initContractInstance();
+		const contract = initContractInstance(web3);
 
 		const pendingReward = await contract.methods.pendingReward(pid, account).call({ from: account });
 
