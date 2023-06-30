@@ -81,7 +81,7 @@ export default function Crypto(props) {
 
     // REX PER YEAR //
     let rewardPerYear =
-      convertWeiToEther(props?.poolRate?.toString(), props?.decimals) *
+      convertWeiToEther(props?.poolRate?.toString(), props?.decimals, false) *
       (86400 * 365) *
       (Number(props?.allocPoint) / Number(props?.totalAllocPoint)) *
       YEARLY_RATE;
@@ -89,7 +89,7 @@ export default function Crypto(props) {
     console.log(
       "rewardPerYear",
       rewardPerYear,
-      Number(convertWeiToEther(props?.totalSupply, props?.decimals))
+      Number(convertWeiToEther(props?.totalSupply, props?.decimals, false))
     );
 
     // LP PRICE //
@@ -99,7 +99,7 @@ export default function Crypto(props) {
     // APR //
     let apr =
       ((rewardPerYear * props?.rexPrice) /
-        (Number(convertWeiToEther(props?.totalSupply, props?.decimals)) *
+        (Number(convertWeiToEther(props?.totalSupply, props?.decimals, false)) *
           lpPrice)) *
       100;
 
