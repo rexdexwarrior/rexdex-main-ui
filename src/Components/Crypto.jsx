@@ -26,12 +26,12 @@ export default function Crypto(props) {
     if (props?.userStaked === "0") return 0;
 
     let sharePercent = BigNumber(
-      convertWeiToEther(props?.userStaked, props?.decimals,false)
-    ).div(
-      BigNumber(
-        convertWeiToEther(props?.totalSupply, props?.decimals,false)
+      convertWeiToEther(props?.userStaked, props?.decimals, false)
+    )
+      .div(
+        BigNumber(convertWeiToEther(props?.totalSupply, props?.decimals, false))
       )
-    ).multipliedBy(100);
+      .multipliedBy(100);
 
     return Number(sharePercent.toString()).toFixed(2);
   };
@@ -41,7 +41,9 @@ export default function Crypto(props) {
 
     let shareRatio = BigNumber(
       convertWeiToEther(props?.userStaked, props?.decimals, false)
-    ).div(BigNumber(convertWeiToEther(props?.totalSupply, props?.decimals, false)));
+    ).div(
+      BigNumber(convertWeiToEther(props?.totalSupply, props?.decimals, false))
+    );
     let sharePerSec = BigNumber(
       convertWeiToEther(props?.poolRate?.toString(), props?.decimals, false)
     )
@@ -152,9 +154,13 @@ export default function Crypto(props) {
         <div className="crypto__more">
           <p>
             {Number(
-              convertWeiToEther(props?.totalSupply?.toString(), props?.decimals)
-            ).toLocaleString()}{" "}
-            {props?.symbol} 
+              convertWeiToEther(
+                props?.totalSupply?.toString(),
+                props?.decimals,
+                false
+              )
+            ).toLocaleString('en-US', {maximumSignificantDigits: 6})}{" "}
+            {props?.symbol}
           </p>
         </div>
       </div>
@@ -163,12 +169,15 @@ export default function Crypto(props) {
         <p className="uniq">Total deposited in USD</p>
         <div className="crypto__more">
           <p>
-            
-            ${(
+            $
+            {(
               getLPPrice(props) *
-              convertWeiToEther(props?.totalSupply?.toString(), props?.decimals)
+              convertWeiToEther(
+                props?.totalSupply?.toString(),
+                props?.decimals,
+                false
+              )
             )?.toLocaleString()}
-            
           </p>
         </div>
       </div>
