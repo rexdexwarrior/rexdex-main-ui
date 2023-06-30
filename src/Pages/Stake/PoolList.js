@@ -15,8 +15,8 @@ export default function PoolList(props) {
     if (props?.userStaked === "0") return 0;
 
     let sharePercent = BigNumber(
-      convertWeiToEther(props?.userStaked, props?.rewardToken?.decimals)
-    ).div(BigNumber(convertWeiToEther(props?.currentSupply, props?.rewardToken?.decimals)).multipliedBy(100));
+      convertWeiToEther(props?.userStaked, props?.rewardToken?.decimals, false)
+    ).div(BigNumber(convertWeiToEther(props?.currentSupply, props?.rewardToken?.decimals, false))).multipliedBy(100);
 
 
     return Number(sharePercent.toString()).toFixed(2);
@@ -26,8 +26,8 @@ export default function PoolList(props) {
     if (props?.userStaked === "0") return 0;
 
     let shareRatio = BigNumber(
-      convertWeiToEther(props?.userStaked, props?.rewardToken?.decimals)
-    ).div(BigNumber(convertWeiToEther(props?.currentSupply, props?.rewardToken?.decimals)));
+      convertWeiToEther(props?.userStaked, props?.rewardToken?.decimals,false)
+    ).div(BigNumber(convertWeiToEther(props?.currentSupply, props?.rewardToken?.decimals,false)));
     let sharePerSec = BigNumber(
       convertWeiToEther(props?.rewardPerSecond?.toString(), props?.rewardToken?.decimals, false)
     )
