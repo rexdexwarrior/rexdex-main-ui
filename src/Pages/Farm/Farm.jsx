@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../Base/Layout";
 import { motion } from "framer-motion";
-import Crypto from "../../Components/Crypto";
+import Crypto from "./Crypto";
 import { search } from "../../Base/SVG";
 import { getAllPools } from "../../utils/helpers/FarmingContractHelper";
 import useMetaMask from "../../utils/useMetaMask";
@@ -37,7 +37,7 @@ export default function Farm(props) {
       const poolList = await getAllPools(account);
       
       setIsLoading(false);
-      //console.log('Pool List', poolList);
+      console.log('Pool List', poolList);
       setPoolList(poolList);
     //}
   };

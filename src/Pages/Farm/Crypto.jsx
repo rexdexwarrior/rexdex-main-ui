@@ -1,9 +1,9 @@
 import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { convertWeiToEther } from "../utils/convertToBN";
+import { convertWeiToEther } from "../../utils/convertToBN";
 import BigNumber from "bignumber.js";
-import useMetaMask from "../utils/useMetaMask";
+import useMetaMask from "../../utils/useMetaMask";
 export default function Crypto(props) {
   const navigate = useNavigate();
   const { account, connectWallet } = useMetaMask();

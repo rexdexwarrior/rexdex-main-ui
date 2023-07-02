@@ -12,6 +12,7 @@ export default function GateInput({
   showList,
   optionClickHandler,
   nftName,
+  defaultImage
 }) {
   const [selected, setselected] = useState(null);
   useEffect(() => {
@@ -39,7 +40,7 @@ export default function GateInput({
             src={
               selected
                 ? selected.image
-                : process.env.PUBLIC_URL + "/images/icons/rexHead.png"
+                : defaultImage ? defaultImage : process.env.PUBLIC_URL + "/images/icons/rexHead.png"
             }
             alt="icon"
           />

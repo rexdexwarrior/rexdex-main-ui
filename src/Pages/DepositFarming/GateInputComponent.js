@@ -7,6 +7,7 @@ export const GateInputComponent = ({
   list,
   optionClickHandler,
   nftName,
+  defaultImage,
   placeholder,
 }) => {
   const inputWrapper = useRef(null);
@@ -61,6 +62,7 @@ export const GateInputComponent = ({
       <GateInput
         placeholder={placeholder}
         nftName={nftName}
+        defaultImage={defaultImage}
         optionClickHandler={optionClickHandler}
         inpRef={inpRef}
         onKeydown={handlePress}

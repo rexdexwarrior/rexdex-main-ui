@@ -94,6 +94,7 @@ async function fetchTokenInfo(myWeb3, lpTokenAddress, poolContract) {
 	};
 }
 
+
 export const getAllPools = async (account) => {
 	let web3_2 = web3;
 	if (!account) {
@@ -110,14 +111,14 @@ export const getAllPools = async (account) => {
 
 		const poolDataPromises = Array.from({ length: poolCount }, async (_, i) => {
 			const poolInfo = await contract.methods.poolInfo(i).call({ from: account });
-		
+
 			const pair = new web3_2.eth.Contract(PairV2Abi, poolInfo[0]);
 
 			const [token0Address, token1Address] = await Promise.all([pair.methods.token0().call(), pair.methods.token1().call()]);
 
 			const [token0, token1] = [new web3_2.eth.Contract(ERC20Abi, token0Address), new web3_2.eth.Contract(ERC20Abi, token1Address)];
 			const [token0Symbol, token1Symbol] = await Promise.all([token0.methods.symbol().call(), token1.methods.symbol().call()]);
-			
+
 			return { poolId: i, ...poolInfo, token0Symbol, token1Symbol, token0Address, token1Address };
 		});
 
@@ -159,7 +160,9 @@ export const getAllPools = async (account) => {
 				poolRate,
 				...(tokenDataArray[index].status === "fulfilled" ? tokenDataArray[index].value : {}),
 				userStaked: account ? userStakedInfoArray[index].status === "fulfilled" ? userStakedInfoArray[index].value.amount : null : 0,
-				userBoosting: account ? userStakedInfoArray[index].status === "fulfilled" ? userStakedInfoArray[index].value.userBoosting : null : 0,
+				userBoosting: account ? userStakedInfoArray[index].status === "fulfilled" ? userStakedInfoArray[index].value.userBoosting.userBoosting : null : 0,
+				userStakedSASId: account ? userStakedInfoArray[index].status === "fulfilled" ? userStakedInfoArray[index].value.userBoosting.userStakedSASId : null : 0,
+				userStakedZooBoosterId: account ? userStakedInfoArray[index].status === "fulfilled" ? userStakedInfoArray[index].value.userBoosting.userStakedZooBoosterId : null : 0,
 				rewardPerSecond,
 				startTime,
 				symbol0: poolData.token0Symbol,
@@ -192,8 +195,14 @@ export const getUserBoosting = async (account, index) => {
 	try {
 		const boostingContract = new web3.eth.Contract(boostingAbi, boostingAddress);
 		const userBoosting = await boostingContract.methods.getUserBoosting(account, index).call();
-
-		return userBoosting;
+		//console.log('userBoosting',userBoosting);
+		const userStakedNFTs = await boostingContract.methods.userInfo(account, index).call();
+		//console.log('userStakedNFTs',userStakedNFTs);
+		return {
+			userBoosting,
+			userStakedSASId: userStakedNFTs?.sasId ?? 0,
+			userStakedZooBoosterId: userStakedNFTs?.zooboosterId ?? 0,
+		};
 	} catch (error) {
 		console.error("Error fetching user boosting:", error);
 	}
@@ -237,3 +246,17 @@ export const getComboBoost = async (tokenId) => {
 		console.error("Error fetching ComboBoost data:", err);
 	}
 };
+
+
+// Get NFT info by tokenId //
+export const getNFTInfo = async (tokenId, contractAddress) => {
+	try {
+		const erc721Contract = new web3.eth.Contract(ERC21Abi, contractAddress);
+		const nftInfo = await erc721Contract.methods.tokenURI(tokenId).call();
+
+		return nftInfo;
+	}
+	catch (err) {
+		console.error("Error fetching NFT data:", err);
+	}
+}

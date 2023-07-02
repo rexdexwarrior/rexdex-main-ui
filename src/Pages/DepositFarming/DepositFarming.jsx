@@ -10,6 +10,7 @@ import {
   getPendingRewards,
   getSasBoosting,
   getZooBoosting,
+  getNFTInfo,
 } from "../../utils/helpers/FarmingContractHelper";
 import { useLocation, useNavigate } from "react-router-dom";
 import useMetaMask from "../../utils/useMetaMask";
@@ -23,7 +24,16 @@ export default function DepositFarming() {
   const web3 = new Web3(window.ethereum);
 
   const {
-    props: { lpToken, decimals, userStaked, poolId, totalSupply, symbol },
+    props: {
+      lpToken,
+      decimals,
+      userStaked,
+      userStakedSASId,
+      userStakedZooBoosterId,
+      poolId,
+      totalSupply,
+      symbol,
+    },
   } = useLocation().state;
   const navigate = useNavigate();
   const { account } = useMetaMask();
@@ -45,8 +55,82 @@ export default function DepositFarming() {
     id: "",
     boosting: "",
   });
+
   const [sasList, setSasList] = useState([]);
   const [zooList, setZooList] = useState([]);
+
+  const [stakedSASNft, setStakedSASNft] = useState({
+    nftImage: "",
+    nftGateWay: "",
+    id: "",
+    boosting: "",
+  });
+  const [stakedZOONft, setStakedZOONft] = useState({
+    nftImage: "",
+    nftGateWay: "",
+    id: "",
+    boosting: "",
+  });
+
+  // Set staked SAS and ZOO Default //
+  useEffect(() => {
+    //alert(userStakedSASId)
+    if (userStaked > 0 && Number(userStakedSASId) > 0) {
+      // SET SAS //
+      getNFTInfo(userStakedSASId, sasAddress).then(async (res) => {
+        //console.log('my SAS', res);
+        let response = await fetch(res);
+        let mySasJson = await response.json();
+        //console.log("mySasJson", mySasJson);
+
+        let boosting = await getSasBoosting(userStakedSASId);
+
+        //console.log("zoo boosting", boosting);
+
+        if (boosting > 0) {
+          boosting = boosting / 1e12;
+          boosting -= 1;
+          boosting *= 100;
+          boosting = boosting.toFixed(2).toString() + "%";
+        }
+
+        setStakedSASNft({
+          nftImage: mySasJson.image,
+          nftGateWay: mySasJson.name,
+          id: userStakedSASId,
+          boosting: boosting,
+        });
+      });
+    }
+
+    if (userStaked > 0 && Number(userStakedZooBoosterId) > 0) {
+      // SET ZOO //
+      getNFTInfo(userStakedZooBoosterId, zooAddress).then(async (res) => {
+        //console.log('my ZOO', res);
+        let response = await fetch(res);
+        let myZooJson = await response.json();
+        //console.log("myZOOToken", mySasJson);
+
+        let boosting = await getZooBoosting(userStakedZooBoosterId);
+
+        //console.log("zoo boosting", boosting);
+
+        if (boosting > 0) {
+          boosting = boosting / 1e12;
+          boosting -= 1;
+          boosting *= 100;
+          boosting = boosting.toFixed(2).toString() + "%";
+        }
+
+        setStakedZOONft({
+          nftImage: myZooJson.image,
+          nftGateWay: myZooJson.name,
+          id: userStakedSASId,
+          boosting: boosting,
+        });
+      });
+    }
+  }, [userStaked, userStakedSASId, userStakedZooBoosterId]);
 
   useEffect(() => {
     if (account) {
@@ -83,7 +167,7 @@ export default function DepositFarming() {
   const updateZooNft = async (data) => {
     let boosting = await getZooBoosting(data?.id);
 
-    console.log('zoo boosting', boosting)
+    console.log("zoo boosting", boosting);
 
     if (boosting > 0) {
       boosting = boosting / 1e12;
@@ -127,7 +211,8 @@ export default function DepositFarming() {
           const uriData = uriDatas[index++];
           return {
             id: nft.tokenId,
-            image: uriData.image+'?img-quality=60&img-format=auto&img-width=100',
+            image:
+              uriData.image + "?img-quality=60&img-format=auto&img-width=100",
             gateWay: uriData.name,
           };
         });
@@ -208,7 +293,6 @@ export default function DepositFarming() {
         success: "Harvesting successfully!",
         error: "Harvesting failed!",
       });
-
     } catch (error) {
       console.log(error);
     }
@@ -339,7 +423,8 @@ export default function DepositFarming() {
                     )
                   }
                 >
-                  Balance: {convertWeiToEther(balance, decimals, false)} RexLP [<a style={{color:'#04f9f4'}}>MAX</a>]
+                  Balance: {convertWeiToEther(balance, decimals, false)} RexLP [
+                  <a style={{ color: "#04f9f4" }}>MAX</a>]
                 </p>
               </div>
             </div>
@@ -351,12 +436,18 @@ export default function DepositFarming() {
                 {sasNft.boosting ? (
                   <p>{`SAS Boosting: ${sasNft.boosting}`}</p>
                 ) : null}
+
+                {stakedSASNft.boosting ? (
+                  <p>{`SAS Boosting: ${stakedSASNft.boosting}`}</p>
+                ) : null}
               </span>
               <GateInputComponent
                 placeholder="Select SAS Nft"
-                initialValue={sasNft.nftGateWay}
+                initialValue={stakedSASNft?.nftGateWay ?? sasNft.nftGateWay}
+                defaultImage={stakedSASNft?.nftImage ?? sasNft.nftImage}
                 nftName="SAS"
                 onValueChange={(value) => {
+                  setStakedSASNft({});
                   updateSasNft({
                     nftImage: value.image,
                     nftGateWay: value.gateWay,
@@ -365,6 +456,7 @@ export default function DepositFarming() {
                 }}
                 list={sasList}
                 optionClickHandler={(item) => {
+                  setStakedSASNft({});
                   updateSasNft({
                     nftImage: item.image,
                     nftGateWay: item.gateWay,
@@ -382,13 +474,19 @@ export default function DepositFarming() {
                 {zooNft.boosting ? (
                   <p>{`Zoo Boosting: ${zooNft.boosting}`}</p>
                 ) : null}
+
+                {stakedZOONft.boosting ? (
+                  <p>{`Zoo Boosting: ${stakedZOONft.boosting}`}</p>
+                ) : null}
               </span>
 
               <GateInputComponent
                 placeholder="Select Zoo Nft"
-                initialValue={zooNft.nftGateWay}
+                initialValue={stakedZOONft?.nftGateWay ?? zooNft.nftGateWay}
+                defaultImage={stakedZOONft?.nftImage ?? zooNft.nftImage}
                 nftName="ZOO"
                 onValueChange={(value) => {
+                  setStakedZOONft({});
                   updateZooNft({
                     nftImage: value.image,
                     id: value.id,
@@ -397,6 +495,7 @@ export default function DepositFarming() {
                 }}
                 list={zooList}
                 optionClickHandler={(item) => {
+                  setStakedZOONft({});
                   updateZooNft({
                     nftImage: item.image,
                     id: item.id,
@@ -453,7 +552,7 @@ export default function DepositFarming() {
                   }
                 >
                   Balance: {convertWeiToEther(userStaked, decimals, false)}{" "}
-                  RexLP [<a style={{color:'#04f9f4'}}>MAX</a>]
+                  RexLP [<a style={{ color: "#04f9f4" }}>MAX</a>]
                 </p>
               </div>
             )}
